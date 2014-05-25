@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Demo of EasyEditor</title>
+    <link href="css/index.css" rel="stylesheet"/>
+    <link href="lib/lib-3rd/jquery-ui-1.10.4.custom/css/ui-darkness/jquery-ui-1.10.4.custom.css" rel="stylesheet"/>
+    <link href="lib/lib-3rd/bootstrap-3.1.1-dist/css/bootstrap.css" rel="stylesheet"/>
+    <link href="lib/lib-3rd/bootstrap-3.1.1-dist/css/bootstrap-theme.css" rel="stylesheet"/>
+</head>
+<body>
+
+<h2>Hello, welcome use online image editor:</h2>
+<div class="row">
+   <div class="col-xs-6 text-center">
+       <div>Please select a image:</div>
+       <input type="file" id="file"/>
+       <form id="form" action="/upload" enctype="multipart/form-data">
+           <input type="text" class="glyphicon-file" name="image" id="image"/>
+           <input type="button" class="btn btn-success" value="submit" id="submit"/>
+       </form>
+   </div>
+    <div class="col-xs-6">
+        Ratio : <input id="ratio" />
+        <div style="margin:10px;width:500px;">
+            <div class="ratio-slider"></div>
+        </div>
+        <canvas id="canvas" width="500px" height="500px"></canvas>
+    </div>
+</div>
+
+<script src="lib/lib-3rd/jquery-1.10.2.min.js"></script>
+<script src="lib/lib-3rd/jquery.form.js"></script>
+<script src="lib/lib-3rd/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js"></script>
+<script src="lib/lib-3rd/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
+<script src="lib/index.js"></script>
+</body>
+</html>

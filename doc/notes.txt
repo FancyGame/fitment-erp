@@ -1,0 +1,6 @@
+1. Show image in canvas
+1.1 canvas has a fixed size, default size is 500*500
+1.2 if image size >= canvas size, show it in canvas as fixed (keep aspect ratio)
+    if image size <  canvas size, show it in center of canvas
+
+1. Zoom In and Zoom Out
