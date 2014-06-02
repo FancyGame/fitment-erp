@@ -1,12 +1,13 @@
 {
-    "name": "html5-image-editor",
+    "name": "fitment-erp",
     "version": "0.0.1",
-    "description": "edit image in html5",
+    "description": "erp system of fitment",
     "main": "main.js",
     "dependencies": {
         "express": "4.3.0",
         "body-parser": "1.2.0",
-        "multiparty": "3.2.6"
+        "multiparty": "3.2.6",
+        "mysql": "2.0.1"
     },
     "devDependencies": {
     },
@@ -14,5 +15,5 @@
         "start": "node main.js"
     },
     "author": "Ken",
-    "license": ""
+    "license": "Private & Commercial"
 }

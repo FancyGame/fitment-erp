@@ -1,9 +1,0 @@
-#img_show {
-    border:1px solid black;
-}
-#canvas {
-    border:1px solid black;
-}
-#canvas:hover {
-    cursor: move;
-}

@@ -1,9 +1,7 @@
-html5-image-editor
+fitment-erp
 ==================
 
-this is a html5 tool to edit a image in local
-
-just a open source project to be familiar with github
+a erp system of fitment
 
 #base on
 * server: nodejs, express, middlewire(multiparty,body-parser)

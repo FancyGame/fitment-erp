@@ -1,6 +1,14 @@
-1. Show image in canvas
-1.1 canvas has a fixed size, default size is 500*500
-1.2 if image size >= canvas size, show it in canvas as fixed (keep aspect ratio)
-    if image size <  canvas size, show it in center of canvas
+1. 角色分类
+1.1. 业务员(市场部)
+1.2. 设计师(设计部)
+1.3. 客服(客服部)
+1.4. 管理员(管理员组)[可维护平台,如新添员工,增删权限等]
+1.5. 主管(管理层)[可查财务,各员工任务进度等]
 
-1. Zoom In and Zoom Out
+2. 功能大类
+2.1. 客户管理
+2.2. 任务管理
+2.2.1. 分配任务, 任务完成通知,跟踪等
+2.3. 资料管理
+2.3.1. 设计资料, 附件, 合同管理等
+2.4. 材料管理
