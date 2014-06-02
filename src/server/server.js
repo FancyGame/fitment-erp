@@ -1,29 +1,29 @@
-//var http = require('http');
-//
-//http.createServer(function (req, res) {
-//  //console.log(req.param("ken"));
-//  res.writeHead(200, {'Content-Type': 'text/plain'});
-//  res.end("[{name: 'Web Development',price: 300,active:true},{name: 'Design',price: 400,active:false,{name: 'Integration',price: 250,active:false},{name: 'Training',price: 220,active:false}]");
-//}).listen(1337, "127.0.0.1");
-//
-//console.log('Server running at http://127.0.0.1:1337/');
+/**
+ * Created by md on 14-6-2.
+ */
 
-var http = require("http");
-var url = require("url");
+var express = require('express');
+var path = require('path');
+var bodyParser = require('body-parser');
+var db = require('./util/db.js');
 
-function start(route,handle) {
-    function onRequest(request, response) {
-        console.log("Request received.");
-        var pathname = url.parse(request.url).pathname;
-        console.log("Request for " + pathname + " received.");
+var app = express();
 
-        route(handle,pathname,request,response);
-
-    }
-
-    http.createServer(onRequest).listen(1337);
-    console.log("Server has started.");
-}
+app.use(bodyParser());
+app.use(express.static(path.join(__dirname, '../public')));
 
 
-exports.start = start;
+app.get('/help', function(req, res){
+    console.log(req.params);
+    db.getCon(function(err,con){
+        con.query('select * from test',null,function(error,rows,fields){
+            con.release();
+            res.send(rows);
+        });
+    });
+});
+
+var port = 3000;
+app.listen(port);
+console.log("Fitment is running on %d ...",port);
+

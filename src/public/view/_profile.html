@@ -1,0 +1,330 @@
+<div class="page-content">
+<div class="row" >
+<div class="col-xs-12">
+<div class="row">
+    <div class="col-xs-12 col-sm-6 widget-container-span ui-sortable">
+        <div class="widget-box">
+            <div class="widget-header">
+                <h5>{{bizInfo.name}}</h5>
+                <div class="widget-toolbar">
+                    <a    data-action="collapse">
+                        <i class="icon-chevron-up"></i>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                        <div class="alert alert-info ">
+                            <i class="icon-umbrella bigger-120 blue"></i>
+                            Click on the image below to edit your restaurant picture
+                        </div>
+                    </div>
+                    <div class="space-4"></div><div class="space-4"></div>
+                    <div class="row">
+                        <div class="col-xs-6 center">
+
+                            <!--<img ng-src="{{bizInfo.img_url}}" style="width: 100%;" />-->
+                            <span class="profile-picture" style="width:100%;height:100%;">
+                                <img id="avatar" class="editable img-responsive" alt="Restaurant picture" ng-src="{{bizInfo.img_url}}" style="width:100%;"/>
+                            </span>
+                        </div>
+
+                        <div class="col-xs-6  left">
+                            <div class="form-group">
+                                <div><span class="label label-xlg label-info ">Address</span></div>
+                                <div>{{bizInfo.address}}</div>
+                                <div>{{bizInfo.city}}, {{bizInfo.state}}   {{bizInfo.zipcode}}</div>
+                            </div>
+
+                            <div class="form-group">
+                                <div><span class="label label-xlg label-info">Opened Date</span></div>
+                                <div>{{bizInfo.opened_date | date:'MM/dd/yyyy'}}</div>
+                            </div>
+                            <div class="form-group">
+                                <div><span class="label label-xlg label-info">Owner Name</span></div>
+                                <div>{{bizInfo.owner_name}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 widget-container-span ui-sortable">
+        <div class="widget-box">
+            <div class="widget-header">
+                <h5>Hours of Operation</h5>
+
+                <div class="widget-toolbar">
+                    <a  href="javascript:void(0)"  data-action="collapse">
+                        <i class="icon-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit" onmouseover="jQuery(this).addClass('ui-state-hover');" onmouseout="jQuery(this).removeClass('ui-state-hover')">
+                        <span class="ui-icon ui-icon-pencil" id="editHoursDiv" ng-click="editHours()"></span>
+                    </div>
+                    <div ng-if="edit.hours">
+                        <div class="row"><div class="space-12"></div>
+                            <div>
+                                <table class="table table-bordered" >
+                                    <tbody ng-repeat="dayItem in bizInfo.showHours">
+                                    <tr  ng-repeat="hoursItem in dayItem.hoursArray">
+                                    <td class="  no-padding-right center"><label class ="control-label">{{dayItem.day}}</label></td>
+                                    <td>
+                                        <label  >
+                                            <span class="col-sm-12">{{hoursItem[0]}} - {{hoursItem[1]}}</span>
+                                        </label>
+                                    </td>
+                                    <td class="center">
+                                        <button class="btn btn-xs btn-danger" ng-click="removeHours(dayItem,hoursItem,$index)">
+                                            <i class="icon-trash bigger-120"></i>
+                                        </button>
+                                    </td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="space-12"></div>
+                            <div class="row center">
+                                <label >Days
+                                    <select size="1" ng-model="daySel" ng-options="dayItem for dayItem in dayArray"  >
+                                        <option >{{dayItem}}</option>
+                                    </select>
+                                </label>
+                                <label>Start
+                                    <select size="1" ng-model="startSel" >
+                                        <option ng-repeat="timeItem in timeArray">{{timeItem}}</option>
+                                    </select>
+                                </label>
+                                <label>End
+                                    <select size="1" ng-model="endSel">
+                                        <option ng-repeat="timeItem in timeArray">{{timeItem}}</option>
+                                    </select>
+                                </label>
+
+                                <button class="btn btn-xs btn-success bigger-110" style="margin-bottom: 5px;"
+                                        ng-click="addHours(daySel,startSel , endSel)">
+                                    <i class="icon-plus-sign bigger-110"></i>
+                                    Add</button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div ng-if="!edit.hours">
+                        <div class="table-responsive">
+                            <table  class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th class="center col-sm-2">Day</th><th>Operation Hours</th>
+                                </tr>
+                                </thead>
+
+                                <tbody ng-repeat="dayItem in bizInfo.showHours">
+                                    <td class="  no-padding-right center"><label class ="control-label">{{dayItem.day}}</label></td>
+                                    <td>
+                                        <label ng-if="!dayItem.opened" class="control-label" > <span class="col-sm-12">Closed</span></label>
+                                        <label ng-if="dayItem.opened" ng-repeat="hoursItem in dayItem.hoursArray">
+                                            <span class="col-sm-12">{{hoursItem[0]}} - {{hoursItem[1]}}</span>
+                                        </label>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 widget-container-span ui-sortable">
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h5>Base Information</h5>
+
+                    <div class="widget-toolbar">
+                        <a  href="javascript:void(0)"  data-action="collapse">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <form class="form-horizontal" role="form">
+                            <div>
+                                <label>
+                                    <i class="icon-phone"></i><span style="margin-left: 6px;">Phone</span>
+                                </label>
+                                <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit"  onmouseover="jQuery(this).addClass('ui-state-hover');" onmouseout="jQuery(this).removeClass('ui-state-hover')" >
+                                    <span class="ui-icon ui-icon-pencil" id="editPhoneDiv" ng-click="editPhone()"></span>
+                                </div>
+
+                                <div >
+
+                                    <lable  style="color:black;font-size: 14px;" ng-if="edit.phone">{{bizInfo.phone_no}}</lable>
+                                    <input class="form-control input-mask-phone" type="text" ng-if="!edit.phone" ng-model="bizInfo.phone_no">
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <label >
+                                    <i class="icon-flag"><span style="margin-left: 6px;">Category</span></i>
+                                </label>
+                                <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit"  onmouseover="jQuery(this).addClass('ui-state-hover');" onmouseout="jQuery(this).removeClass('ui-state-hover')" >
+                                    <span class="ui-icon ui-icon-pencil" id="editCategoryDiv" ng-click="editCategory()"></span>
+                                </div>
+                                <div>
+                                    <lable style="color:black;font-size: 14px;" ng-if="edit.category">{{bizInfo.category}}</lable>
+                                    <input class="form-control input-mask-flag" type="text" ng-if="!edit.category" ng-model="bizInfo.category">
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <label >
+                                    <i class="icon-bookmark"></i><span style="margin-left: 6px;">Service</span>
+
+                                </label>
+                                <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit"  onmouseover="jQuery(this).addClass('ui-state-hover');" onmouseout="jQuery(this).removeClass('ui-state-hover')" >
+                                    <span class="ui-icon ui-icon-pencil" id="editServiceDiv" ng-click="editService()"></span>
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="col-xs-12 " ng-if="edit.service">
+                                        <label class="middle col-xs-12 col-sm-6" ng-if="bizInfo.wifi">
+                                            <span class="lbl"> Free WIFI</span>
+                                        </label>
+                                        <label class="middle col-xs-12 col-sm-6" ng-if="bizInfo.parking">
+                                            <span class="lbl"> Free Parking</span>
+                                        </label>
+                                        <label class="middle col-xs-12 col-sm-6"  ng-if="bizInfo.room_private">
+                                            <span class="lbl"> Private Room</span>
+                                        </label>
+                                        <label class="middle col-xs-12 col-sm-6" ng-if="bizInfo.payment_cashonly">
+                                            <span class="lbl"> Cash Only</span>
+                                        </label>
+                                        <label class="middle col-xs-12 col-sm-6" ng-if="bizInfo.reservations">
+                                            <span class="lbl"> Take Reservations</span>
+                                        </label>
+                                        <label class="middle col-xs-12 col-sm-6" ng-if="bizInfo.seating_outdoor">
+                                            <span class="lbl"> Outdoor Seating</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-12 " ng-if="!edit.service">
+                                    <label class="middle col-xs-12 col-sm-6" >
+                                        <input class="ace" type="checkbox" ng-disabled="edit.service" ng-model="bizInfo.wifi">
+                                        <span class="lbl"> Free WIFI</span>
+                                    </label>
+                                    <label class="middle col-xs-12 col-sm-6" >
+                                        <input class="ace" type="checkbox" ng-disabled="edit.service" ng-model="bizInfo.parking">
+                                        <span class="lbl"> Free Parking</span>
+                                    </label>
+                                    <label class="middle col-xs-12 col-sm-6"  >
+                                        <input class="ace" type="checkbox" ng-disabled="edit.service" ng-model="bizInfo.room_private">
+                                        <span class="lbl"> Private Room</span>
+                                    </label>
+                                    <label class="middle col-xs-12 col-sm-6" >
+                                        <input class="ace" type="checkbox" ng-disabled="edit.service" ng-model="bizInfo.payment_cashonly">
+                                        <span class="lbl"> Cash Only</span>
+                                    </label>
+                                    <label class="middle col-xs-12 col-sm-6" >
+                                        <input class="ace" type="checkbox" ng-disabled="edit.service" ng-model="bizInfo.reservations">
+                                        <span class="lbl"> Take Reservations</span>
+                                    </label>
+                                    <label class="middle col-xs-12 col-sm-6" >
+                                        <input class="ace" type="checkbox" ng-disabled="edit.service" ng-model="bizInfo.seating_outdoor">
+                                        <span class="lbl"> Outdoor Seating</span>
+                                    </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <label >
+                                    <i class="icon-info"></i><span style="margin-left: 6px;">About</span>
+                                </label>
+                                <div title="" style="float:right;cursor:pointer;" class="ui-pg-div ui-inline-edit"  onmouseover="jQuery(this).addClass('ui-state-hover');" onmouseout="jQuery(this).removeClass('ui-state-hover')" >
+                                    <span class="ui-icon ui-icon-pencil" id="editAboutDiv" ng-click="editAbout()"></span>
+                                </div>
+
+                                <div >
+
+                                    <lable style="color:black;font-size: 14px;" ng-if="edit.about">{{bizInfo.desc}}</lable>
+                                    <textarea class="form-control" ng-if="!edit.about" ng-model="bizInfo.desc"></textarea>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 widget-container-span ui-sortable">
+            <div class="widget-box">
+                <div class="widget-header">
+                    <h5>Social Links</h5>
+
+                    <div class="widget-toolbar">
+                        <a href="javascript:void(0)" data-action="collapse">
+                            <i class="icon-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <div>
+                            <style>
+                                .social_btn {
+                                    border-radius: 100%;
+                                    width: 52px;
+                                    height: 52px;
+                                    line-height: 70px;
+                                    padding: 0;
+                                    margin: 0 1px;
+                                    border: 0;
+                                }
+                                .social_btn > [class*="icon-"] {
+                                    font-size: 34px;
+                                    margin: 0px;
+                                    padding: 0px;
+                                }
+                            </style>
+                            <a class="btn btn-primary social_btn">
+                                <i class="icon-facebook"></i>
+                            </a>
+                            Facebook
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <a class="btn btn-info social_btn">
+                                <i class="icon-twitter"></i>
+                            </a>
+                            Twitter
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
