@@ -1,29 +1,20 @@
 /**
  * Created by md on 14-6-2.
  */
-
 var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
-var db = require('./util/db.js');
-
 var app = express();
+var router = express.Router();
+var path = require('path');
+var requestDispatcher = require('./requestDispatcher');
 
-app.use(bodyParser());
+requestDispatcher.setRouter(router);
+requestDispatcher.pushForbiddenPath('/ken');
+requestDispatcher.pushForbiddenPath('/gao');
+
+// static should be put in front of use
 app.use(express.static(path.join(__dirname, '../public')));
-
-
-app.get('/help', function(req, res){
-    console.log(req.params);
-    db.getCon(function(err,con){
-        con.query('select * from test',null,function(error,rows,fields){
-            con.release();
-            res.send(rows);
-        });
-    });
-});
+app.use(router);
 
 var port = 3000;
 app.listen(port);
-console.log("Fitment is running on %d ...",port);
-
+console.log('Fitment is runing on %d ...',port);

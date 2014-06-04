@@ -9,20 +9,33 @@
 //console.log('Server running at http://127.0.0.1:1337/');
 
 var http = require("http");
-var url = require("url");
+var url = require("url")
+var express = require('express');
+var path = require('path');
+var bodyParser = require('body-parser');
+var db = require('./util/db.js');
+
+var app = express();
 
 function start(route,handle) {
     function onRequest(request, response) {
         console.log("Request received.");
         var pathname = url.parse(request.url).pathname;
+        if(pathname && pathname.indexOf('/')==0) {
+            pathname = pathname.substring(1);
+        }
         console.log("Request for " + pathname + " received.");
-
         route(handle,pathname,request,response);
     }
-
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(app.router);
     http.createServer(onRequest).listen(1337);
     console.log("Server has started.");
 }
 
 
 exports.start = start;
+
+module.exports = {
+    start: start
+};

@@ -7,6 +7,8 @@ function route(handle,pathname,request,response) {
         handle[pathname](request,response);
     } else {
         console.log("No request handler found for " + pathname);
+        response.write("No request handler found for " + pathname);
+        response.end();
     }
 }
 
