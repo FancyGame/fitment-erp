@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>Login Page - TruMenu Business</title>
+		<title>欢迎使用-悦装ERP</title>
 
 		<meta name="description" content="User login page" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -54,7 +54,7 @@
 							<div class="center">
 								<h1>
                                     <img src="image/logo.png" height="24px" />
-									<span class="red">TruMenu Business</span>
+									<span class="red">悦装ERP - 管理平台</span>
 								</h1>
 							</div>
 
@@ -66,7 +66,7 @@
 										<div class="widget-main">
 											<h4 class="header blue lighter bigger">
 												<i class="icon-coffee green"></i>
-												Please Enter Your Information
+												请输入登陆信息
 											</h4>
 
 											<div class="space-6"></div>
@@ -75,14 +75,14 @@
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input ng-model="user" type="text" class="form-control" placeholder="Username" />
+															<input ng-model="user" type="text" class="form-control" placeholder="用户名" />
 															<i class="icon-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input ng-model="password" type="password" class="form-control" placeholder="Password" />
+															<input ng-model="password" type="password" class="form-control" placeholder="密码" />
 															<i class="icon-lock"></i>
 														</span>
 													</label>
@@ -97,7 +97,7 @@
 
 														<button type="button" class="width-35 pull-right btn btn-sm btn-primary" ng-click="onLogin()">
 															<i class="icon-key"></i>
-															Login
+															登陆
 														</button>
 													</div>
 
@@ -128,13 +128,13 @@
 											<div>
 												<a href="javascript:;" ng-click="showBox('forgot-box');" class="forgot-password-link">
 													<i class="icon-arrow-left"></i>
-													Forgot password
+													忘记密码
 												</a>
 											</div>
 
 											<div>
 												<a href="javascript:;" ng-click="showBox('signup-box');" class="user-signup-link">
-													Register
+													注册
 													<i class="icon-arrow-right"></i>
 												</a>
 											</div>
@@ -258,7 +258,7 @@
 									</div><!-- /widget-body -->
 								</div><!-- /signup-box -->
                                 <div class="login-copyright">
-                                    <h4 class="blue" style="">&copy; Mission Public Inc. 2014</h4>
+                                    <h4 class="blue" style="">&copy; 悦装ERP软件有限公司. 2014</h4>
                                 </div>
 							</div><!-- /position-relative -->
 						</div>
@@ -297,9 +297,13 @@
 		</script>
 
         <!-- Mission Public Javascript -->
-        <script src="js/lib/ng.1.2.6/angular.min.js"></script>
-        <script src="js/lib/ng.1.2.6/angular-route.min.js"></script>
+        <!--<script src="js/lib-3rd/angular_1.3.0.js"></script>-->
+        <script src="js/lib/ng.1.2.6/angular.js"></script>
+        <script src="js/lib/ng.1.2.6/angular-route.js"></script>
         <script src="js/lib/ng.1.2.6/angular-cookies.js"></script>
+        <script src="js/lib/bindonce.js"></script>
+        <script src="js/lib/ng-infinite-scroll.js"></script>
+        <script src="js/lib/angular-chosen.js"></script>
         <script src="js/mp_module.js"></script>
         <script src="js/login_controller.js"></script>
 	</body>

@@ -1,0 +1,46 @@
+
+#menu_type_view .col-xs-12 {
+    padding: 0px;
+}
+
+#menu_type_table td {
+    height: 32px;
+    line-height: 32px;
+}
+
+.menu_type_operations span,.menu_type_new_div .icon-plus-sign {
+    font-size: 14pt;
+    margin-right:10px;
+    cursor: pointer;
+}
+
+.menu_type_new_div {
+    margin:5px;
+}
+.menu_type_new_title {
+    font-size: 18px;
+    font-weight: normal;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.menu_type_new_div .icon-plus-sign {
+    margin: 0px 0px 0px 20px;
+    font-size:31px;
+}
+.menu_type_new_hit {
+    float: right;
+    font-size:9px;
+    color: orange;
+}
+.menu_type_search_input {
+    height: 20px;
+    margin-left: 20px;
+}
+#menu_type_view .menu_type_operations span:hover,#menu_type_view .menu_type_new_div .icon-plus-sign:hover{
+    -webkit-transform:scale(1.2) rotate(10deg);
+    -moz-transform:scale(1.2) rotate(10deg);
+    -o-transform:scale(1.2) rotate(10deg);
+    -ms-transform: scale(1.2) rotate(10deg);
+    transform: scale(1.2) rotate(10deg);
+    opacity: 1;
+    position: static;
+}

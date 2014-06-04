@@ -1,0 +1,60 @@
+
+#menu_add_update_view .col-xs-12 {
+    padding: 0px;
+}
+
+#menu_add_update_view .menuAddUpdateForm {
+    padding: 0px;
+}
+#menu_add_update_view .menuAddUpdateForm>.myitem>.col-xs-12 input,
+#menu_add_update_view .menuAddUpdateForm>.myitem>.col-xs-12 textarea,
+#menu_add_update_view .menuAddUpdateForm>.myitem>.col-xs-12 select {
+    width: 100%;
+}
+
+#menu_add_update_view .menuAddUpdateForm>.myitem {
+    margin-bottom: 5px;
+    padding: 0px;
+}
+
+#menu_add_update_view .myitem>.center {
+    padding: 0px;
+}
+
+#menu_add_update_view .widget-toolbar .menu-delete-btn{
+    width: 90px;
+    height: 30px;
+    line-height: 2px;
+    border-width: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#menu_add_update_view .ace-file-input,
+#menu_add_update_view .editable-input,
+#menu_add_update_view .editable-inline
+{
+    text-align: center;
+    width: 90% !important;
+}
+#menu_add_update_view .ace-file-input {
+    width: 100% !important;
+}
+#menu_add_update_view .file-label {
+    height:265px;
+}
+#menu_add_update_view .col-xs-12 .row_title {
+    background-color: #EEE;
+    margin: 2px 0px;
+    min-height: 30px;
+    line-height: 30px;
+    border: 0px;
+    border-left: 5px solid white;
+    border-right: 5px solid white;
+}
+#menu_add_update_view .menuAddUpdateForm>.myitem>.col-xs-12 input[type='text'],
+#menu_add_update_view .menuAddUpdateForm>.myitem>.col-xs-12 input[type='select'],
+#menu_add_update_view .menuAddUpdateForm>.myitem>.col-xs-12 textarea,
+#menu_add_update_view .menuAddUpdateForm>.myitem>.col-xs-12 select {
+    width: 100%;
+    margin: 2px 0px;
+}

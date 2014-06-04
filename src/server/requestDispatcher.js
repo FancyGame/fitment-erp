@@ -2,9 +2,8 @@
  * Created by md on 14-6-3.
  */
 
-
-var userBiz = require('./biz/userBiz');
-var forbiddenPath = [];
+var config = require('./router_config');
+var forbiddenPaths = config.forbiddenPaths;
 
 function setRouter(router) {
 // simple logger for this router's requests
@@ -16,17 +15,20 @@ function setRouter(router) {
                 next();
         }
     });
-    console.log(Object.prototype.toString.call(userBiz.getUserList));
-    router.use('/getUserList', userBiz.getUserList);
+//    console.log(Object.prototype.toString.call(userBiz.getUserList));
+    for(var i in config.routePaths) {
+        router.use(config.routePaths[i].path, config.routePaths[i].function);
+    }
 
 // handle 404
     router.use(function(req, res, next) {
         res.send('404 page not found, url='+req.url);
+//        res.end();
     });
 }
 function isForbidden(req,res) {
-    for(var i in forbiddenPath) {
-        if(req.path==forbiddenPath[i]) {
+    for(var i in forbiddenPaths) {
+        if(req.path==forbiddenPaths[i]) {
             res.send("<h1>"+req.path+" is forbidden</h1>");
             return true;
         }
@@ -41,13 +43,6 @@ function hasAuthorization(req,res) {
     }
     return true;
 }
-function setForbiddenPath(pathArray) {
-    forbiddenPath = pathArray;
-}
-function pushForbiddenPath(path) {
-    forbiddenPath.push(path);
-}
 
 exports.setRouter = setRouter;
-exports.setForbiddenPath = setForbiddenPath;
-exports.pushForbiddenPath = pushForbiddenPath;
+

@@ -8,8 +8,6 @@ var path = require('path');
 var requestDispatcher = require('./requestDispatcher');
 
 requestDispatcher.setRouter(router);
-requestDispatcher.pushForbiddenPath('/ken');
-requestDispatcher.pushForbiddenPath('/gao');
 
 // static should be put in front of use
 app.use(express.static(path.join(__dirname, '../public')));
