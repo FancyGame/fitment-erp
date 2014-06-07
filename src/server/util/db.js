@@ -7,14 +7,8 @@ var pool  = mysql.createPool({
    	host: '127.0.0.1'
 });
 
-var getConnection = function(callback) {
+exports.getCon = function(callback) {
     pool.getConnection(function(err, connection) {
         callback(err, connection);
     });
-};
-
-exports.getCon = getConnection;
-
-module.exports = {
-    getCon: getConnection
 };

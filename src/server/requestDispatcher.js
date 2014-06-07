@@ -6,8 +6,7 @@ var config = require('./router_config');
 var forbiddenPaths = config.forbiddenPaths;
 
 function setRouter(router) {
-// simple logger for this router's requests
-// all requests to this router will first hit this middleware
+    // before all
     router.use(function(req, res, next) {
         console.log('router.use %s %s %s', req.method, req.url, req.path);
         if(hasAuthorization(req,res)) {
@@ -15,13 +14,18 @@ function setRouter(router) {
                 next();
         }
     });
-//    console.log(Object.prototype.toString.call(userBiz.getUserList));
-    for(var i in config.routePaths) {
-        router.use(config.routePaths[i].path, config.routePaths[i].function);
+
+    //bind router
+    for(var key in config.routePaths) {
+        for(var i in config.routePaths[key]) {
+            var item = config.routePaths[key][i];
+            router[key](item.path, item.function);
+        }
     }
 
-// handle 404
+    // after all : handle 404
     router.use(function(req, res, next) {
+        res.status(404);
         res.send('404 page not found, url='+req.url);
 //        res.end();
     });
@@ -36,11 +40,20 @@ function isForbidden(req,res) {
     return false;
 }
 function hasAuthorization(req,res) {
-    //test
-    if(req.path=='/admin') {
-        res.send('no authorization');
+    if(!req.session.userId && req.path!='/user/login') {
+//        res.writeHead(302,{
+//            Location:'/login.html'
+//        });
+//        res.end();
+        res.status(500);
+        res.end('NoAuthorization');
         return false;
     }
+    //test
+//    if(req.path=='/admin') {
+//        res.send('no authorization');
+//        return false;
+//    }
     return true;
 }
 

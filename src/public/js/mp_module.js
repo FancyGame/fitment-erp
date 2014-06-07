@@ -83,8 +83,9 @@ app.factory('$mp_ajax',function($http,$cookieStore,$location){
         }
     }
     function checkAuthorizedStatus(data) {
-        if(!angular.isUndefined(data.outMsg) && data.outMsg=="Access token error ,the Api can't be accessed") {
-            $location.path('#/login');
+        if(!angular.isUndefined(data) && data=="NoAuthorization") {
+//            $location.url('../login.html');
+            window.location.href='/login.html';
         }
     }
     return $mp_ajax;

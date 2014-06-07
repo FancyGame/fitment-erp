@@ -5,13 +5,20 @@
 
 var userBiz = require('./biz/userBiz');
 
-var routePaths = [
-    {path:'/getUserList',function:userBiz.getUserList}
-];
-var forbiddenPaths = [
+exports.routePaths = {
+    get:[
+        {path:'/getUserList',function:userBiz.getUserList},
+        {path:'/session',function:userBiz.session}
+    ],
+    post:[
+        {path:'/user/login',function:userBiz.login}
+    ],
+    delete:[],
+    put:[]
+};
+
+exports.forbiddenPaths = [
     '/ken',
     '/gao'
 ];
 
-exports.routePaths = routePaths;
-exports.forbiddenPaths = forbiddenPaths;

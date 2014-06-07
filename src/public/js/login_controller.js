@@ -4,22 +4,20 @@
 
 app.controller("loginController", ['$rootScope','$scope','$mp_ajax','$cookieStore',function($rootScope,$scope ,$mp_ajax, $cookieStore) {
 
-    $scope.user = "bowen.wang@missionpublic.com";
-    $scope.password = "mp";
+    $scope.user = {};
+    $scope.user.username = "gk";
+    $scope.user.password = "123456";
 
     $scope.onLogin = function () {
-        var postData = {};
-        postData.user = $scope.user;
-        postData.password = $scope.password;
-        
-        var bizLogin = $mp_ajax.post("/bizUser/do/login",postData,function(json){
-            $cookieStore.put($mp_ajax.AUTH_NAME,json['accessToken']);
-            if(!json['bizId']){
-                alert('No business info');
-            }else{
-                $cookieStore.put('bizId',json['bizId']);
-                window.location.href = "index.html#/"+json['bizId'];
-            }
+        var bizLogin = $mp_ajax.post("/user/login",$scope.user,function(json){
+            console.log(json);
+//            $cookieStore.put($mp_ajax.AUTH_NAME,json['accessToken']);
+//            if(!json['bizId']){
+//                alert('No business info');
+//            }else{
+//                $cookieStore.put('bizId',json['bizId']);
+//                window.location.href = "index.html#/"+json['bizId'];
+//            }
 
         },function(json) {
             if(typeof(json) != 'undefined' && typeof(json.message) != 'undefined')
