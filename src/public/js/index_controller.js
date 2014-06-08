@@ -33,6 +33,10 @@ function SetPositionOfPageContent() {
     }
 }
 
+window.onresize = function() {
+    SetPositionOfPageContent();
+};
+
 function OnViewLoad() {
     SetPositionOfPageContent();
     //处理菜单事件
@@ -49,7 +53,7 @@ function OnViewLoad() {
                 return true;
         }
         return false;
-    })
+    });
     //set related tab to active when refresh page with routing information
 //    var routePath = window.location.hash;
 //    if(routePath.length>0) {
@@ -71,7 +75,44 @@ function preInit(){
 //    });
 }
 
-app.controller("indexController", ['$rootScope','$scope','$mp_ajax','$cookieStore','$browser',function($rootScope,$scope,$mp_ajax,$cookieStore,$browser) {
+function wc(s){
+    if(!s) return 0;
+    var watchers = (s.$$watchers) ? s.$$watchers.length : 0;
+    var child = s.$$childHead;
+    while (child) {
+        watchers += (child.$$watchers) ? child.$$watchers.length : 0;
+//            console.log('next child',watchers);
+        watchers += wc(child);
+        child = child.$$nextSibling;
+    }
+//        console.log('watchers',watchers);
+    return watchers;
+}
+
+app.controller("indexController", ['$rootScope','$scope','$mp_ajax','$cookieStore','$browser','$q',
+    function($rootScope,$scope,$mp_ajax,$cookieStore,$browser,$q) {
+
+    function promiseLoadCurUser() {
+        var deferred = $q.defer();
+        $mp_ajax.get("/user/getCurUser",function(data){
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    }
+    function promiseLoadCompany() {
+        var deferred = $q.defer();
+        $mp_ajax.get("/company/getCompany/"+$rootScope.curUser.id,function(data){
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    }
+    promiseLoadCurUser().then(function(user){
+        $rootScope.curUser = user;
+        promiseLoadCompany().then(function(company){
+            $rootScope.curCompany = company;
+        });
+    });
+
     var authToken = $cookieStore.get($mp_ajax.AUTH_NAME);
 //    if(angular.isUndefined(authToken) || authToken=="") {
 //        window.location.href = "login.html";
@@ -94,13 +135,6 @@ app.controller("indexController", ['$rootScope','$scope','$mp_ajax','$cookieStor
         {url:"#",name:"资料管理",class:"icon-list-alt",active:false,open:false},
         {url:"#",name:"材料管理",class:"icon-list-alt",active:false,open:false}
     ];
-
-//    var body = document.getElementsByTagName("body")[0];
-//    for(var i=0;i<$scope.tabs.length;i++) {
-//        var script=document.createElement("script");
-//        script.src = "js\/" + $scope.tabs[i].script;
-//        body.appendChild(script);
-//    }
 
     $scope.curTab = $scope.tabs[0];  //default value is first tab
     $scope.curParentTab = {};
@@ -141,25 +175,6 @@ app.controller("indexController", ['$rootScope','$scope','$mp_ajax','$cookieStor
 
     $rootScope.bizId = $cookieStore.get('bizId');
 
-//    //Handle tab changing event
-//    $(".nav-list>li>a").each(function() {
-//        $(this).click(function() {
-//            $(".nav-list .active").removeClass('active');
-//            $(this).parent().addClass('active');
-//        });
-//    });
-//
-//    //set related tab to active when refresh page with routing information
-//    var routePath = window.location.hash;
-//    if(routePath.length>0) {
-//        $(".nav-list .active").removeClass('active');
-//        $(".nav-list>li>a").each(function(){
-//            if(routePath.indexOf($(this).attr("href"))==0) {
-//                $(this).parent().addClass('active');
-//            }
-//        });
-//    }
-
     $scope.doClick = function () {
         var getBiz = $mp_ajax.get("/biz",function(data){
             console.log("ajax success");
@@ -169,9 +184,9 @@ app.controller("indexController", ['$rootScope','$scope','$mp_ajax','$cookieStor
         });
     };
 
-    window.onresize = function() {
-        SetPositionOfPageContent();
-    }
+    setTimeout(function(){
+        console.log('watchers count = ',wc($scope));
+    },2000);
 
     SetPositionOfPageContent();
 }] );

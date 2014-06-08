@@ -4,10 +4,13 @@
 
 
 var userBiz = require('./biz/userBiz');
+var companyBiz = require('./biz/companyBiz');
 
 exports.routePaths = {
     get:[
-        {path:'/getUserList',function:userBiz.getUserList},
+        {path:'/user/getUserList',function:userBiz.getUserList},
+        {path:'/user/getCurUser',function:userBiz.getCurUserFE},
+        {path:'/company/getCompany/:id',function:companyBiz.getCompanyFE},
         {path:'/session',function:userBiz.session}
     ],
     post:[

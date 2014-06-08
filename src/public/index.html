@@ -57,7 +57,11 @@
 					<a href="javascript:;" class="navbar-brand">
 						<small>
 							<i class="icon-leaf"></i>
-						    悦装 管理员
+						    <span ng-bind="curCompany.name">
+                                <span style="font-size:10px;">Loading...</span>
+                            </span>
+                            管理平台
+                            <span style="font-size:12pt;color:#CCC;">[悦装ERP]</span>
 						</small>
 					</a><!-- /.brand -->
 				</div><!-- /.navbar-header -->
@@ -277,8 +281,10 @@
 							<a data-toggle="dropdown" href="javascript:;" class="dropdown-toggle">
 								<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
-									<small>Welcome,</small>
-									Jason
+									<small>欢迎,</small>
+									<span ng-bind="curUser.realname">
+                                        <span style="font-size:10px;">Loading...</span>
+									</span>
 								</span>
 
 								<i class="icon-caret-down"></i>

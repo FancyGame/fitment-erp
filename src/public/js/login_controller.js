@@ -11,14 +11,9 @@ app.controller("loginController", ['$rootScope','$scope','$mp_ajax','$cookieStor
     $scope.onLogin = function () {
         var bizLogin = $mp_ajax.post("/user/login",$scope.user,function(json){
             console.log(json);
-//            $cookieStore.put($mp_ajax.AUTH_NAME,json['accessToken']);
-//            if(!json['bizId']){
-//                alert('No business info');
-//            }else{
-//                $cookieStore.put('bizId',json['bizId']);
-//                window.location.href = "index.html#/"+json['bizId'];
-//            }
-
+            if(json=='true') {
+                window.location.href='/';
+            }
         },function(json) {
             if(typeof(json) != 'undefined' && typeof(json.message) != 'undefined')
                 alert("Login failed, msg=" + json.message);
