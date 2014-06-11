@@ -1,3 +1,6 @@
 1. Ace的二级菜单
 1.1 HTML标签
 1.2 ace.js, 里面执行了ace.handle_side_menu(jQuery);
+
+2. 以FE结尾的函数,意思是给FrontPage写的功能. 所以一些内部的字段,就不给给前台页面 2014-06-10
+    在函数的注释中, type:FE=FrontEnd, BE=BackEnd

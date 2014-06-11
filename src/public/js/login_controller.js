@@ -5,7 +5,7 @@
 app.controller("loginController", ['$rootScope','$scope','$mp_ajax','$cookieStore',function($rootScope,$scope ,$mp_ajax, $cookieStore) {
 
     $scope.user = {};
-    $scope.user.username = "gk";
+    $scope.user.username = "ljb";
     $scope.user.password = "123456";
 
     $scope.onLogin = function () {

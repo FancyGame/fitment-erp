@@ -3,27 +3,25 @@
  */
 
 var dao = require('../dao/userDao');
+var db = require('../util/db');
+var logger = require('../util/logger').logger;
 
-exports.getUserList = function(req,res) {
-    var id = req.query.id;
-    return dao.getUserList(id,function(error,rows){
-        if(error) {
-            console.log('userBiz getUserList, error=',error);
-        }
-        else {
-            res.send(rows);
-        }
-    });
-};
 
+/**
+ * @Author Ken
+ * @description 获取当前用户的信息
+ * @LastUpdateDate 2014-06-10
+ * @type FE
+ * */
 exports.getCurUserFE = function(req,res) {
     var user = {};
-    user.id = req.body.id;
-    dao.getUser(user).then(function(rows){
+    user.id = req.session.userId;
+    db.list(dao.tableName,user).then(function(rows){
         if(rows.length>0) {
             user.id = rows[0].id;
             user.name = rows[0].name;
             user.gid = rows[0].gid;
+            user.cid = rows[0].cid;
             user.age = rows[0].age;
             user.realname = rows[0].realname;
             res.send(user);
@@ -37,13 +35,35 @@ exports.getCurUserFE = function(req,res) {
     });
 };
 
+/**
+ * @Author Ken
+ * @description 获取当前用户的信息
+ * @LastUpdateDate 2014-06-10
+ * @type BE
+ * */
+exports.getUserList = function(user) {
+    db.list(dao.tableName,user).then(function(rows){
+        return rows;
+    },function(){
+        return [];
+    });
+};
+
+/**
+ * @Author Ken
+ * @description 登陆,成功后把userId存在session中
+ * @LastUpdateDate 2014-06-10
+ * @type FE
+ * */
 exports.login = function(req,res) {
     console.log(req.body);
     var user = {};
     user.name = req.body.username;
     user.pwd = req.body.password;
 
-    dao.getUser(user).then(function(rows){
+    db.create('test',{id:2,name:'cy'});
+
+    db.list(dao.tableName,user).then(function(rows){
        if(rows && rows.length>0) {
            res.send("true");
            var sess = req.session;

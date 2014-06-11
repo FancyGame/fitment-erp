@@ -3,11 +3,13 @@
  */
 
 var dao = require('../dao/companyDao');
+var db = require('../util/db');
+var logger = require('../util/logger').logger;
 
 exports.getCompanyFE = function(req,res) {
     var company = {};
     company.id = req.params.id;
-    dao.getCompany(company).then(function(rows){
+    db.list(dao.tableName,company).then(function(rows){
         if(rows.length>0) {
             company.id = rows[0].id;
             company.name = rows[0].name;

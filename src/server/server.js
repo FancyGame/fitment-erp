@@ -9,6 +9,7 @@ var app = express();
 var router = express.Router();
 var path = require('path');
 var requestDispatcher = require('./requestDispatcher');
+var logger = require('./util/logger').logger;
 
 app.use(bodyParser());
 app.use(cookieParser());//must before session
@@ -25,4 +26,5 @@ app.use(router);
 
 var port = 3000;
 app.listen(port);
-console.log('Fitment is runing on %d ...',port);
+
+logger.info('Fitment is runing on %d ...',port);

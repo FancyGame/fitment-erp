@@ -12,20 +12,4 @@ log4js.addAppender(log4js.appenders.file('logs/fitment.log'), 'fitment');
 var logger = log4js.getLogger('fitment');
 logger.setLevel('DEBUG');  //DEBUG < INFO < WARN < ERROR < FATAL
 
-logger.info("Fitment is started");
-
-exports.info = function(){
-    logger.info(arguments);
-};
-exports.debug = function(){
-    logger.debug(arguments);
-};
-exports.error = function(){
-    logger.error(arguments);
-};
-exports.log = function(){
-    logger.log(arguments);
-};
-exports.warn = function(){
-    logger.warn(arguments);
-};
+exports.logger = logger;

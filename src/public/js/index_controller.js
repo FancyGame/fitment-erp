@@ -101,16 +101,16 @@ app.controller("indexController", ['$rootScope','$scope','$mp_ajax','$cookieStor
     }
     function promiseLoadCompany() {
         var deferred = $q.defer();
-        $mp_ajax.get("/company/getCompany/"+$rootScope.curUser.id,function(data){
+        $mp_ajax.get("/company/getCompany/"+$rootScope.curUser.cid,function(data){
             deferred.resolve(data);
         });
         return deferred.promise;
     }
     promiseLoadCurUser().then(function(user){
         $rootScope.curUser = user;
-        promiseLoadCompany().then(function(company){
-            $rootScope.curCompany = company;
-        });
+        return promiseLoadCompany();
+    }).then(function(company){
+        $rootScope.curCompany = company;
     });
 
     var authToken = $cookieStore.get($mp_ajax.AUTH_NAME);
