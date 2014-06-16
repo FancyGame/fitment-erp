@@ -15,6 +15,19 @@ var pool = mysql.createPool({
    	host: dbHost
 });
 
+//-------------
+//var tmp = [['a', 'b'], ['c', 'd']];
+//console.log(pool.escape(tmp)+'def');
+//var userid = "1 or 1=1";
+//var sql = "update test set ? where ?";
+//sql = mysql.format(sql,[{name:'Ken11'},{id:3}]);
+//console.log(sql);
+//var ret = pool.query(sql,function(error,rows){
+//    console.log('rows',rows);
+//});
+//console.log("pool.query ret=",ret);
+//=============
+
 /**
  * @Author Ken
  * @description 查询sql结果
@@ -25,8 +38,9 @@ var pool = mysql.createPool({
  * */
 var query = function(sql,params) {
     var deferred = Q.defer();
-    logger.debug('db.query, sql=%s',sql);
-    pool.query(sql,params,function(error,rows){
+    var formatSQL = mysql.format(sql,params);
+    logger.debug('db.query, sql = %s',formatSQL);
+    pool.query(formatSQL,params,function(error,rows){
         if(error) {
             logger.error('Sql error, code='+error.code+',sqlState='+error.sqlState+',msg='+error.message);
             deferred.reject(error);
@@ -155,14 +169,14 @@ function getField(tableName,fieldName) {
 /**
  * @Author Ken
  * @description list,update,delete 通用方法
- * @LastUpdateDate 2014-06-11
+ * @LastUpdateDate 2014-06-16
  * @parameter tableName
  * @parameter obj 根据此参数的属性组合sql
  * @parameter sql list,update,delete对应的sql
  * @parameter type 类型,list/update/delete中的一种
  * @return promise
  * */
-function commonRUD(tableName,obj,sql,type) {
+function commonRUD(sql,type,tableName,objWhere,objSet) {
     var deferred = Q.defer();
 
     if(!isValidTableName(tableName)) {
@@ -173,16 +187,18 @@ function commonRUD(tableName,obj,sql,type) {
     }
 
     var params = [],i=0;
-    if(obj) {
-        for(var key in obj) {
+    //这个主要是为了update,因为update语句要有set还要有where的列
+    if(objSet)
+        params[i++] = objSet;
+    if(objWhere) {
+        for(var key in objWhere) {
             if(isValidField(tableName,key)) {
-                sql += ' and '+key+'=?';
-                params[i++] = obj[key];
-                break;
+                sql += ' and `'+key+'`=?';
+                params[i++] = objWhere[key];
             }
         }
     } else {
-        var errorMsg = 'db.'+type+', obj is undefined or null';
+        var errorMsg = 'db.'+type+', objWhere is undefined or null';
         logger.error(errorMsg);
         deferred.reject(errorMsg);
         return deferred.promise;
@@ -199,92 +215,94 @@ function commonRUD(tableName,obj,sql,type) {
  * @parameter obj 根据此参数的属性组合sql
  * @return promise
  * */
-function commonCreate(tableName,obj) {
-    var deferred = Q.defer();
-
-    if(!isValidTableName(tableName)) {
-        var errorMsg = 'db.create, no table, tableName='+tableName;
-        logger.error(errorMsg);
-        deferred.reject(errorMsg);
-    }
-    //INSERT INTO tbl_name (col1,col2) VALUES(15,col1*2);
-    var sql = "insert into `"+tableName+"` (";
-    var columnsSql = '';
-    var valuesSql = '';
-    if(obj) {
-        for(var key in obj) {
-            var field = getField(tableName,key);
-            if(field) {
-                if(columnsSql!='') {
-                    columnsSql += ',';
-                    valuesSql += ',';
-                }
-                columnsSql += '`'+key+'`';
-                switch(field.data_type.toLowerCase()) {
-                    case 'int':
-                    case 'tinyint':
-                    case 'smallint':
-                    case 'mediumint':
-                    case 'bigint':
-                        valuesSql += parseInt(obj[key]);
-                        break;
-                    case 'float':
-                    case 'double':
-                    case 'double precision':
-                    case 'real':
-                    case 'decimal':
-                        valuesSql += parseFloat(obj[key]);
-                        break;
-                    case 'bool':
-                    case 'boolean':
-                        valuesSql += obj[key];
-                        break;
-                    case 'char':
-                    case 'varchar':
-                    case 'text':
-                    case 'date':
-                    case 'datetime':
-                    case 'timestamp':
-                        valuesSql += '"'+obj[key]+'"';
-                        break;
-                    default:
-                        logger.error('db.commonCreate, 未拦截的field类型,type=%s',field.data_type);
-                        break;
-                }
-            }
-        }//end for
-        sql = sql + columnsSql + ') values('+valuesSql+')';
-    } else {
-        var errorMsg = 'db.create, obj is undefined or null';
-        logger.error(errorMsg);
-        deferred.reject(errorMsg);
-        return deferred.promise;
-    }
-    return query(sql);
-};
+// function commonCreate(tableName,obj) {
+//    var deferred = Q.defer();
+//
+//    if(!isValidTableName(tableName)) {
+//        var errorMsg = 'db.create, no table, tableName='+tableName;
+//        logger.error(errorMsg);
+//        deferred.reject(errorMsg);
+//    }
+//    //INSERT INTO tbl_name (col1,col2) VALUES(15,col1*2);
+//    var sql = "insert into `"+tableName+"` (";
+//    var columnsSql = '';
+//    var valuesSql = '';
+//    if(obj) {
+//        for(var key in obj) {
+//            var field = getField(tableName,key);
+//            if(field) {
+//                if(columnsSql!='') {
+//                    columnsSql += ',';
+//                    valuesSql += ',';
+//                }
+//                columnsSql += '`'+key+'`';
+//                switch(field.data_type.toLowerCase()) {
+//                    case 'int':
+//                    case 'tinyint':
+//                    case 'smallint':
+//                    case 'mediumint':
+//                    case 'bigint':
+//                        valuesSql += parseInt(obj[key]);
+//                        break;
+//                    case 'float':
+//                    case 'double':
+//                    case 'double precision':
+//                    case 'real':
+//                    case 'decimal':
+//                        valuesSql += parseFloat(obj[key]);
+//                        break;
+//                    case 'bool':
+//                    case 'boolean':
+//                        valuesSql += obj[key];
+//                        break;
+//                    case 'char':
+//                    case 'varchar':
+//                    case 'text':
+//                    case 'date':
+//                    case 'datetime':
+//                    case 'timestamp':
+//                        valuesSql += '"'+obj[key]+'"';
+//                        break;
+//                    default:
+//                        logger.error('db.commonCreate, 未拦截的field类型,type=%s',field.data_type);
+//                        break;
+//                }
+//            }
+//        }//end for
+//        sql = sql + columnsSql + ') values('+valuesSql+')';
+//    } else {
+//        var errorMsg = 'db.create, obj is undefined or null';
+//        logger.error(errorMsg);
+//        deferred.reject(errorMsg);
+//        return deferred.promise;
+//    }
+//    return query(sql);
+//};
 /**
  * @Author Ken
- * @description CRUD 操作
- * @LastUpdateDate 2014-06-11
+ * @description CRUD 操作 只提供对单表的CRUD基本操作,如需高级功能还需要调用query方法
+ * @LastUpdateDate 2014-06-16
  * @parameter tableName
- * @parameter obj 根据此参数的属性组合sql
+ * @parameter objWhere 根据此参数的属性组合sql
+ * @parameter objSet 主要为update语言使用
  * @return promise
  * */
-exports.list = function(tableName,obj) {
+exports.select = function(tableName,objWhere) {
     var sql = "select * from `"+tableName+"` where true";
-    var type = 'list';
-    return commonRUD(tableName,obj,sql,type);
+    var type = 'select';
+    return commonRUD(sql,type,tableName,objWhere);
 };
-exports.update = function(tableName,obj) {
-    var sql = "update `"+tableName+"` where true";
-    var type = 'list';
-    return commonRUD(tableName,obj,sql,type);
+exports.update = function(tableName,objWhere,objSet) {
+    var sql = "update `"+tableName+"` set ? where true";
+    var type = 'update';
+    return commonRUD(sql,type,tableName,objWhere,objSet);
 };
-exports.delete = function(tableName,obj) {
+exports.delete = function(tableName,objWhere) {
     var sql = "delete from `"+tableName+"` where true";
     var type = 'delete';
-    return commonRUD(tableName,obj,sql,type);
+    return commonRUD(sql,type,tableName,objWhere);
 };
-exports.create = function(tableName,obj) {
-    return commonCreate(tableName,obj);
+exports.insert = function(tableName,objSet) {
+    var sql = "insert into "+tableName+" set ?";
+    return query(sql,objSet);
 };

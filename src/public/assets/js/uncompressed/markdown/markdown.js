@@ -486,7 +486,7 @@ Markdown.dialects.Gruber = {
 
       // passed to stack.forEach to turn list items up the stack into paras
       function paragraphify(s, i, stack) {
-        var list = s.list;
+        var list = s.select;
         var last_li = list[list.length-1];
 
         if (last_li[1] instanceof Array && last_li[1][0] == "para") {
@@ -513,7 +513,7 @@ Markdown.dialects.Gruber = {
                    ? ["bulletlist"]
                    : ["numberlist"];
 
-          stack.push( { list: list, indent: m[1] } );
+          stack.push( { select: list, indent: m[1] } );
           return list;
         }
 
@@ -522,7 +522,7 @@ Markdown.dialects.Gruber = {
             list = make_list( m ),
             last_li,
             loose = false,
-            ret = [ stack[0].list ],
+            ret = [ stack[0].select ],
             i;
 
         // Loop to search over block looking for inner block elements and loose lists
@@ -575,7 +575,7 @@ Markdown.dialects.Gruber = {
                 var found = false;
                 for (i = 0; i < stack.length; i++) {
                   if ( stack[ i ].indent != m[1] ) continue;
-                  list = stack[ i ].list;
+                  list = stack[ i ].select;
                   stack.splice( i+1 );
                   found = true;
                   break;
@@ -587,7 +587,7 @@ Markdown.dialects.Gruber = {
                   if (wanted_depth <= stack.length) {
                     stack.splice(wanted_depth);
                     //print("Desired depth now", wanted_depth, "stack:", stack.length);
-                    list = stack[wanted_depth-1].list;
+                    list = stack[wanted_depth-1].select;
                     //print("list:", uneval(list) );
                   }
                   else {

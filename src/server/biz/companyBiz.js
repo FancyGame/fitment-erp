@@ -9,7 +9,7 @@ var logger = require('../util/logger').logger;
 exports.getCompanyFE = function(req,res) {
     var company = {};
     company.id = req.params.id;
-    db.list(dao.tableName,company).then(function(rows){
+    db.select(dao.tableName,company).then(function(rows){
         if(rows.length>0) {
             company.id = rows[0].id;
             company.name = rows[0].name;

@@ -16,7 +16,7 @@ var logger = require('../util/logger').logger;
 exports.getCurUserFE = function(req,res) {
     var user = {};
     user.id = req.session.userId;
-    db.list(dao.tableName,user).then(function(rows){
+    db.select(dao.tableName,user).then(function(rows){
         if(rows.length>0) {
             user.id = rows[0].id;
             user.name = rows[0].name;
@@ -42,7 +42,7 @@ exports.getCurUserFE = function(req,res) {
  * @type BE
  * */
 exports.getUserList = function(user) {
-    db.list(dao.tableName,user).then(function(rows){
+    db.select(dao.tableName,user).then(function(rows){
         return rows;
     },function(){
         return [];
@@ -61,9 +61,11 @@ exports.login = function(req,res) {
     user.name = req.body.username;
     user.pwd = req.body.password;
 
-    db.create('test',{id:2,name:'cy'});
+//    db.update('test',{id:'3'},{name:'ccccc'}).then(function(rows){
+//        console.log(rows);
+//    });
 
-    db.list(dao.tableName,user).then(function(rows){
+    db.select(dao.tableName,user).then(function(rows){
        if(rows && rows.length>0) {
            res.send("true");
            var sess = req.session;

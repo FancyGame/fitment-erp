@@ -1,0 +1,1 @@
+1. db.create should return the obj we created

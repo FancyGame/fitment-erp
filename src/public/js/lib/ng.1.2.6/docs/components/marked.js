@@ -19,7 +19,7 @@ var block = {
   nptable: noop,
   lheading: /^([^\n]+)\n *(=|-){3,} *\n*/,
   blockquote: /^( *>[^\n]+(\n[^\n]+)*\n*)+/,
-  list: /^( *)(bull) [\s\S]+?(?:hr|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,
+  select: /^( *)(bull) [\s\S]+?(?:hr|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,
   html: /^ *(?:comment|closed|closing) *(?:\n{2,}|\s*$)/,
   def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,
   table: noop,
@@ -33,7 +33,7 @@ block.item = replace(block.item, 'gm')
   (/bull/g, block.bullet)
   ();
 
-block.list = replace(block.list)
+block.select = replace(block.select)
   (/bull/g, block.bullet)
   ('hr', /\n+(?=(?: *[-*_]){3,} *(?:\n+|$))/)
   ();
@@ -272,7 +272,7 @@ Lexer.prototype.token = function(src, top) {
     }
 
     // list
-    if (cap = this.rules.list.exec(src)) {
+    if (cap = this.rules.select.exec(src)) {
       src = src.substring(cap[0].length);
       bull = cap[2];
 

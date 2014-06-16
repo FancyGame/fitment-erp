@@ -2780,7 +2780,7 @@ List - abstract class for inputs that have source option loaded from js array or
         sourceCache: true
     });
 
-    $.fn.editabletypes.list = List;      
+    $.fn.editabletypes.select = List;
 
 }(window.jQuery));
 
@@ -3059,7 +3059,7 @@ $(function(){
         this.init('select', options, Select.defaults);
     };
 
-    $.fn.editableutils.inherit(Select, $.fn.editabletypes.list);
+    $.fn.editableutils.inherit(Select, $.fn.editabletypes.select);
 
     $.extend(Select.prototype, {
         renderList: function() {
@@ -3115,7 +3115,7 @@ $(function(){
         }
     });      
 
-    Select.defaults = $.extend({}, $.fn.editabletypes.list.defaults, {
+    Select.defaults = $.extend({}, $.fn.editabletypes.select.defaults, {
         /**
         @property tpl 
         @default <select></select>
@@ -3156,7 +3156,7 @@ $(function(){
         this.init('checklist', options, Checklist.defaults);
     };
 
-    $.fn.editableutils.inherit(Checklist, $.fn.editabletypes.list);
+    $.fn.editableutils.inherit(Checklist, $.fn.editabletypes.select);
 
     $.extend(Checklist.prototype, {
         renderList: function() {
@@ -3252,7 +3252,7 @@ $(function(){
        }
     });      
 
-    Checklist.defaults = $.extend({}, $.fn.editabletypes.list.defaults, {
+    Checklist.defaults = $.extend({}, $.fn.editabletypes.select.defaults, {
         /**
         @property tpl 
         @default <div></div>
@@ -6603,7 +6603,7 @@ $(function(){
         }, options.typeahead);
     };
 
-    $.fn.editableutils.inherit(Constructor, $.fn.editabletypes.list);
+    $.fn.editableutils.inherit(Constructor, $.fn.editabletypes.select);
 
     $.extend(Constructor.prototype, {
         renderList: function() {
@@ -6798,7 +6798,7 @@ $(function(){
         
     });      
 
-    Constructor.defaults = $.extend({}, $.fn.editabletypes.list.defaults, {
+    Constructor.defaults = $.extend({}, $.fn.editabletypes.select.defaults, {
         /**
         @property tpl 
         @default <input type="text">
