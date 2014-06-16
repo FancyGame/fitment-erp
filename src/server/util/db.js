@@ -302,6 +302,10 @@ exports.delete = function(tableName,objWhere) {
     var type = 'delete';
     return commonRUD(sql,type,tableName,objWhere);
 };
+/**
+ * @description
+ *      rows.insertId will be the inserted id under 'auto_increment' config
+ * */
 exports.insert = function(tableName,objSet) {
     var sql = "insert into "+tableName+" set ?";
     return query(sql,objSet);
