@@ -61,10 +61,6 @@ exports.login = function(req,res) {
     user.name = req.body.username;
     user.pwd = req.body.password;
 
-//    db.update('test',{id:'3'},{name:'ccccc'}).then(function(rows){
-//        console.log(rows);
-//    });
-
     db.select(dao.tableName,user).then(function(rows){
        if(rows && rows.length>0) {
            res.send("true");

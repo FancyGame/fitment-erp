@@ -1,1 +1,1 @@
-1. db.create should return the obj we created
+1. db.create should return the obj we created. [Fixed] 2014-06-17 return a obj with insertId
