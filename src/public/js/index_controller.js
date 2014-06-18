@@ -15,6 +15,10 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
             templateUrl: './view/_profile.html',
             controller: 'profileController'
         })
+        .when('/work_task', {
+            templateUrl: './view/_work_task.html',
+            controller: 'workTaskController'
+        })
         .otherwise({
             templateUrl: './view/_mainboard.html',
             controller: 'mainboardController'
@@ -122,11 +126,11 @@ app.controller("indexController", ['$rootScope','$scope','$mp_ajax','$cookieStor
         {url:"#/mainboard",name:"个人主页",class:"icon-home",active:true,open:false},
         {url:"javascript:;",name:"任务管理",class:"icon-list-alt",active:false,subTabStyle:{display:'none'},open:false,
             subTabs:[
-                {url:"#/profile",name:"任务列表",active:false},
+                {url:"#/work_task",name:"任务列表",active:false},
                 {url:"#/mainboard",name:"def",active:false}
             ]
         },
-        {url:"#/profile",name:"客户管理",class:"icon-list-alt",active:false,subTabStyle:{display:'none'},open:false,
+        {url:"javascript:;",name:"客户管理",class:"icon-list-alt",active:false,subTabStyle:{display:'none'},open:false,
             subTabs:[
                 {url:"#/profile",name:"任务列表",active:false},
                 {url:"#/mainboard",name:"def",active:false}
