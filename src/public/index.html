@@ -46,7 +46,21 @@
 		<![endif]-->
 
         <!-- Particular -->
-        <link rel="stylesheet" href="css/main_board.css" />
+        <link rel="stylesheet" href="css/lib/font-awesome.min.css" />
+        <script>
+            var gJsCssArray = [
+                {css:'index.css',js:'indexController.js'},
+                {css:'mainboard.css',js:'mainboardController.js'},
+                {css:'',js:'clientListController.js'},
+                {css:'',js:'projectListController.js'},
+                {css:'',js:'workTaskController.js'},
+            ];
+            for(var i in gJsCssArray) {
+                var css = gJsCssArray[i].css;
+                if(css && css.length>0)
+                    document.write("<link rel='stylesheet' href='css\/"+css+"' \/>");
+            }
+        </script>
 	</head>
 
 	<body>
@@ -464,19 +478,10 @@
         <script src="js/lib/angular-chosen.js"></script>
         <script src="js/mp_module.js"></script>
         <script src="js/util.js"></script>
-        <script src="js/index_controller.js"></script>
-
-        <script src="js/menu_controller.js"></script>
-        <script src="js/mainboard_controller.js"></script>
-        <script src="js/work_task_controller.js"></script>
-        <script src="js/menu_type_controller.js"></script>
-        <script src="js/menu_add_update_controller.js"></script>
-        <script src="js/profile_controller.js"></script>
-        <script src="js/customer_controller.js"></script>
-        <script src="js/promotion_controller.js"></script>
-        <script src="js/promotion_add_update_controller.js"></script>
-        <script src="js/insight_controller.js"></script>
-        <script src="js/profile_hours_controller.js"></script>
-
+        <script>
+            for(var i in gJsCssArray) {
+                document.write("<script src='js\/"+gJsCssArray[i].js+"'><\/script>");
+            }
+        </script>
     </body>
 </html>
