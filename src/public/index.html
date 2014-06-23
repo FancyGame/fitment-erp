@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="mp_main" ng-controller="indexController">
+<html lang="en" ng-app="app_main" ng-controller="indexController">
 	<head>
 		<meta charset="utf-8" />
 		<title>悦装-ERP管理平台</title>
@@ -325,7 +325,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="javascript:;">
+									<a href="javascript:;" ng-click="onLogout()">
 										<i class="icon-off"></i>
 										Logout
 									</a>
@@ -471,12 +471,12 @@
         <!---->
 
         <script src="js/lib-3rd/angular_1.3.0.js"></script>
+        <script src="js/lib-3rd/jquery.cookie.js"></script>
         <script src="js/lib/ng.1.2.6/angular-route.min.js"></script>
-        <script src="js/lib/ng.1.2.6/angular-cookies.js"></script>
         <script src="js/lib/bindonce.js"></script>
         <script src="js/lib/ng-infinite-scroll.js"></script>
         <script src="js/lib/angular-chosen.js"></script>
-        <script src="js/mp_module.js"></script>
+        <script src="js/ng_module.js"></script>
         <script src="js/util.js"></script>
         <script>
             for(var i in gJsCssArray) {

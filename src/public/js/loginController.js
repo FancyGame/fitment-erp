@@ -2,14 +2,13 @@
  * Created by Ken on 2014-4-15.
  */
 
-app.controller("loginController", ['$rootScope','$scope','$mp_ajax','$cookieStore',function($rootScope,$scope ,$mp_ajax, $cookieStore) {
+app.controller("loginController", ['$rootScope','$scope','Ajax',function($rootScope,$scope ,Ajax) {
 
     $scope.user = {};
     $scope.user.username = "ljb";
     $scope.user.password = "123456";
-
     $scope.onLogin = function () {
-        var bizLogin = $mp_ajax.post("/user/login",$scope.user,function(json){
+        Ajax.post("/user/login",$scope.user).then(function(json){
             console.log(json);
             if(json=='true') {
                 window.location.href='/';

@@ -2,10 +2,10 @@
  * Created by Ken on 2014-4-18.
  */
 
-app.controller("projectListController", ['$rootScope','$scope','$mp_ajax','$location',function($rootScope,$scope,$mp_ajax ,$location) {
+app.controller("projectListController", ['$rootScope','$scope','Ajax','$location',function($rootScope,$scope,Ajax ,$location) {
     $scope.text = "个人主页";
 
-    $mp_ajax.get('/work_task/getMyWorkTaskCount',function(data){
+    Ajax.get('/work_task/getMyWorkTaskCount',function(data){
         $scope.taskCount = data.count;
     });
 

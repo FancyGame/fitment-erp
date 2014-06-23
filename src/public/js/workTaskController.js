@@ -2,11 +2,11 @@
  * Created by Ken on 2014-4-18.
  */
 
-app.controller("workTaskController", ['$rootScope','$scope','$mp_ajax','$location',function($rootScope,$scope,$mp_ajax ,$location) {
+app.controller("workTaskController", ['$rootScope','$scope','Ajax','$location',function($rootScope,$scope,Ajax ,$location) {
     $scope.text = "工作任务";
     $scope.tasks = [];
 
-    $mp_ajax.get('/work_task/getMyWorkTaskList',function(data){
+    Ajax.get('/work_task/getMyWorkTaskList',function(data){
         $scope.tasks = data;
     });
     $scope.format = function(date,mask) {

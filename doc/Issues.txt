@@ -1,1 +1,2 @@
 1. db.create should return the obj we created. [Fixed] 2014-06-17 return a obj with insertId
+2. TODO: 2014-06-23 退出登陆时, 要发请求到服务器端, 删除session, 再返回到login.html
