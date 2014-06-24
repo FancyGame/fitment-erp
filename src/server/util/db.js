@@ -134,7 +134,7 @@ function getField(tableName,fieldName) {
  * @parameter sqlOrder 为select语句使用
  * @return promise
  * */
-exports.select = function(tableName,objWhere,sqlOrder) {
+var _select = function(tableName,objWhere,sqlOrder) {
     var sql = "select * from `"+tableName+"`";
     var sqlWhere = pool.escape(objWhere).replace(/,/g,' and');
     if(sqlWhere && sqlWhere.length>0)
@@ -143,27 +143,90 @@ exports.select = function(tableName,objWhere,sqlOrder) {
         sql += sqlOrder;
     return query(sql);
 };
-exports.update = function(tableName,objSet,objWhere) {
+exports.select = _select;
+
+var _update = function(tableName,objSet,objWhere) {
     var sql = "update `"+tableName+"` set ?";
     var sqlWhere = pool.escape(objWhere).replace(/,/g,' and');
     if(sqlWhere && sqlWhere.length>0)
         sql = sql + " where " + sqlWhere;
     return query(sql,objSet);
 };
-exports.delete = function(tableName,objWhere) {
+exports.update = _update;
+
+var _delete = function(tableName,objWhere) {
     var sql = "delete from `"+tableName+"`";
     var sqlWhere = pool.escape(objWhere).replace(/,/g,' and');
     if(sqlWhere && sqlWhere.length>0)
         sql = sql + " where " + sqlWhere;
     return query(sql);
 };
+exports.delete = _delete;
 /**
  * @description
  *      rows.insertId will be the inserted id under 'auto_increment' config
  * */
-exports.insert = function(tableName,objSet) {
+var _insert = function(tableName,objSet) {
     var sql = "insert into "+tableName+" set ?";
     return query(sql,objSet);
+};
+exports.insert = _insert;
+/**
+ * @Author Ken
+ * @description 通用的count方法,获取数据的条数
+ * @LastUpdateDate 2014-06-24
+ * @parameter tableName
+ * @parameter objWhere 根据此参数的属性组合sql
+ * @return promise
+ * */
+var _count = function(tableName,objWhere) {
+    var sql = "select count(*) as count from `"+tableName+"`";
+    return query(sql,objWhere);
+};
+exports.count = _count;
+
+/**
+ * @Author Ken
+ * @description 通用的count方法,获取数据的条数
+ * @LastUpdateDate 2014-06-24
+ * @parameter tableName
+ * @parameter obj 根据此参数的属性组合sql
+ * @parameter req request
+ * @parameter res response
+ * @return promise
+ * */
+exports.getList = function(tableName,obj,req,res) {
+    _select(tableName,obj).then(function(rows){
+        if(rows.length>0) {
+            res.send(rows);
+        }
+        else {
+            res.send("false");
+        }
+    },function(error){
+        res.status(500);
+        res.end();
+    });
+};
+
+/**
+ * @Author Ken
+ * @description 通用的count方法,获取数据的条数
+ * @LastUpdateDate 2014-06-24
+ * @parameter tableName
+ * @parameter obj 根据此参数的属性组合sql
+ * @parameter req request
+ * @parameter res response
+ * @return promise
+ * */
+exports.getCount = function(tableName,obj,req,res) {
+    _count(tableName,obj).then(function(rows){
+        var count = rows.length>0 ? rows[0].count : 0;
+        res.send({count:count});
+    },function(error){
+        res.status(500);
+        res.end();
+    });
 };
 
 

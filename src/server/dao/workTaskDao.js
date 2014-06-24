@@ -7,8 +7,4 @@ var logger = require('../util/logger').logger;
 var tableName = 'work_task';
 exports.tableName = tableName;
 
-exports.getCount = function(obj) {
-    var sql = "select count(*) as count from `"+tableName+"`";
-    return db.query(sql);
-};
 

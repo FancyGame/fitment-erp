@@ -6,14 +6,20 @@
 var userBiz = require('./biz/userBiz');
 var companyBiz = require('./biz/companyBiz');
 var workTaskBiz = require('./biz/workTaskBiz');
+var clientBiz = require('./biz/clientBiz');
+var projectBiz = require('./biz/projectBiz');
 
 exports.routePaths = {
     get:[
         {path:'/user/getUserList',function:userBiz.getUserList},
         {path:'/user/getCurUser',function:userBiz.getCurUserFE},
         {path:'/company/getCompany/:id',function:companyBiz.getCompanyFE},
-        {path:'/work_task/getMyWorkTaskList',function:workTaskBiz.getMyWorkTaskListFE},
-        {path:'/work_task/getMyWorkTaskCount',function:workTaskBiz.getMyWorkTaskCountFE},
+        {path:'/work_task/my/list',function:workTaskBiz.getMyListFE},
+        {path:'/work_task/my/count',function:workTaskBiz.getMyCountFE},
+        {path:'/client/my/list',function:clientBiz.getMyListFE},
+        {path:'/client/my/count',function:clientBiz.getMyCountFE},
+        {path:'/project/my/list',function:projectBiz.getMyListFE},
+        {path:'/project/my/count',function:projectBiz.getMyCountFE},
         {path:'/session',function:userBiz.session}
     ],
     post:[

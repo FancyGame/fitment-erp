@@ -17,8 +17,10 @@ var encrypt = require('../util/encrypt');
 exports.getCurUserFE = function(req,res) {
     var user = {};
     user.id = req.session.userId;
+    user.del = 0;
     db.select(dao.tableName,user).then(function(rows){
         if(rows.length>0) {
+            //TODO: 2014-06-24 只取出需要给前台的列,防止敏感信息传递给前台. 应写个方法处理
             user.id = rows[0].id;
             user.name = rows[0].name;
             user.gid = rows[0].gid;
@@ -43,6 +45,7 @@ exports.getCurUserFE = function(req,res) {
  * @type BE
  * */
 exports.getUserList = function(user) {
+    user.del = 0;
     db.select(dao.tableName,user).then(function(rows){
         return rows;
     },function(){
@@ -61,6 +64,7 @@ exports.login = function(req,res) {
     var user = {};
     user.name = req.body.username;
     user.pwd = encrypt.MD5(req.body.password);
+    user.del = 0;
 
     db.select(dao.tableName,user).then(function(rows){
        if(rows && rows.length>0) {

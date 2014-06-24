@@ -4,11 +4,12 @@
 
 var config = require('./router_config');
 var forbiddenPaths = config.forbiddenPaths;
+var logger = require('util/logger').logger;
 
 function setRouter(router) {
     // before all
     router.use(function(req, res, next) {
-        console.log('router.use %s %s %s', req.method, req.url, req.path);
+        logger.info('router.use %s %s %s', req.method, req.url, req.path);
         if(hasAuthorization(req,res)) {
             if (!isForbidden(req, res))
                 next();
@@ -41,19 +42,10 @@ function isForbidden(req,res) {
 }
 function hasAuthorization(req,res) {
     if(!req.session.userId && req.path!='/user/login') {
-//        res.writeHead(302,{
-//            Location:'/login.html'
-//        });
-//        res.end();
         res.status(500);
         res.end('NoAuthorization');
         return false;
     }
-    //test
-//    if(req.path=='/admin') {
-//        res.send('no authorization');
-//        return false;
-//    }
     return true;
 }
 

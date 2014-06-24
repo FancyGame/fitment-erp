@@ -5,7 +5,7 @@
 app.controller("mainboardController", ['$rootScope','$scope','Ajax','$location',function($rootScope,$scope,Ajax ,$location) {
     $scope.text = "个人主页";
 
-    Ajax.get('/work_task/getMyWorkTaskCount').then(function(data){
+    Ajax.get('/work_task/my/count').then(function(data){
         $scope.taskCount = data.count;
     });
 

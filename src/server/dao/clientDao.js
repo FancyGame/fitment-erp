@@ -6,4 +6,3 @@ var logger = require('../util/logger').logger;
 
 var tableName = 'client';
 exports.tableName = tableName;
-

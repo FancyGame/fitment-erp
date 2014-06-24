@@ -1,63 +1,8 @@
 
-/*.page-content {*/
-    /*position: absolute;*/
-/*}*/
-#main_board_view .col-xs-12 {
-    padding: 0px;
-}
 
 #main_board_view .menuType {
-    /*color: green;*/
-    /*font-size: 9pt;*/
-    /*padding: 5px;*/
     margin-right: 3px;
 }
-
-/*.menuType:before {*/
-    /*content: '';*/
-    /*background-image: url('../image/menu-type-icon.jpg');*/
-    /*background-position: -180px -222px;*/
-    /*background-repeat:no-repeat;*/
-    /*width:44px;*/
-    /*height: 31px;*/
-    /*display: inline-block;*/
-/*}*/
-
-#main_board_view .widget-toolbar .menu-edit-btn{
-    width: 45px;
-    height: 30px;
-    line-height: 2px;
-    border-width: 4px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-#main_board_view .widget-toolbar .menu-view-btn{
-    font-size:13px;
-    width: 100px;
-    height: 30px;
-    line-height: 2px;
-    border-width: 4px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-#main_board_view .widget-toolbar .menu-pdf-btn{
-    font-size:13px;
-    height: 30px;
-    line-height: 1.3;
-    border-width: 4px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
-
-/*.menuItemType .menu-edit-btn {*/
-    /*width: 45px;*/
-    /*height: 30px;*/
-    /*line-height: 2px;*/
-    /*border-width: 4px;*/
-    /*padding-top: 2px;*/
-    /*padding-bottom: 2px;*/
-/*}*/
 
 #main_board_view .menuItemType {
     color: green;
