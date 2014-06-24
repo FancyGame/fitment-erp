@@ -5,6 +5,7 @@
 var dao = require('../dao/userDao');
 var db = require('../util/db');
 var logger = require('../util/logger').logger;
+var encrypt = require('../util/encrypt');
 
 
 /**
@@ -52,14 +53,14 @@ exports.getUserList = function(user) {
 /**
  * @Author Ken
  * @description 登陆,成功后把userId存在session中
- * @LastUpdateDate 2014-06-10
+ * @LastUpdateDate 2014-06-24
  * @type FE
  * */
 exports.login = function(req,res) {
     console.log(req.body);
     var user = {};
     user.name = req.body.username;
-    user.pwd = req.body.password;
+    user.pwd = encrypt.MD5(req.body.password);
 
     db.select(dao.tableName,user).then(function(rows){
        if(rows && rows.length>0) {
