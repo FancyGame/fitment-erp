@@ -6,7 +6,7 @@ app.controller("workTaskController", ['$rootScope','$scope','Ajax','$location',f
     $scope.text = "工作任务";
     $scope.tasks = [];
 
-    Ajax.get('/work_task/getMyWorkTaskList',function(data){
+    Ajax.get('/work_task/getMyWorkTaskList').then(function(data){
         $scope.tasks = data;
     });
     $scope.format = function(date,mask) {
