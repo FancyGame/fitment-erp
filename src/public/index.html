@@ -476,6 +476,10 @@
         <script src="js/lib/bindonce.js"></script>
         <script src="js/lib/ng-infinite-scroll.js"></script>
         <script src="js/lib/angular-chosen.js"></script>
+        <script>
+            //Ken, separate with ng_module.js, login page don't need these services below
+            var app = angular.module("app_main", ['ngRoute','localytics.directives','infinite-scroll','pasvaz.bindonce']);
+        </script>
         <script src="js/ng_module.js"></script>
         <script src="js/util.js"></script>
         <script>

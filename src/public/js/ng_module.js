@@ -2,8 +2,6 @@
  * Created by Ken on 14-4-16.
  */
 
-var app = angular.module("app_main", ['ngRoute','localytics.directives','infinite-scroll','pasvaz.bindonce']);
-
 app.config(function($httpProvider) {
     $httpProvider.defaults.headers.common['Cache-Control'] = 'no-cache';
 });
@@ -19,22 +17,19 @@ app.factory('Ajax',function($http,$location,$q){
 
     Ajax.setHeader('Content-Type','application/json');
 
-    var commonAjax = function(fn,url,param) {
-        var deferred = $q.defer();
-        $http[fn](url,param).success(function(data){
-            deferred.resolve(data);
-        }).error(function(data){
-            checkAuthorizedStatus(data);
-            deferred.reject(data);
-        });
-        return deferred.promise;
-    };
     //构造Ajax方法
-    var fnArray = ['get','post','delete','put'];
+    var fnArray = ['get','post','delete','put','head'];
     for(var key in fnArray) {
         (function(fn) {
             Ajax[fn] = function(url,param) {
-                return commonAjax(fn,url,param);
+                var deferred = $q.defer();
+                $http[fn](url,param).success(function(data){
+                    deferred.resolve(data);
+                }).error(function(data){
+                    checkAuthorizedStatus(data);
+                    deferred.reject(data);
+                });
+                return deferred.promise;
             };
         })(fnArray[key]); //Ken 2014-06-23 Comments:通过使用匿名函数来实现变量的隔离
     }
