@@ -3,7 +3,6 @@
  */
 
 app.controller("clientListController", ['$rootScope','$scope','Ajax','$location',function($rootScope,$scope,Ajax ,$location) {
-    $scope.text = "客户列表";
     $scope.clients = [];
 
     Ajax.get('/client/my/list').then(function(data){

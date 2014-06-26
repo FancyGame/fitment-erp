@@ -8,6 +8,7 @@ var companyBiz = require('./biz/companyBiz');
 var workTaskBiz = require('./biz/workTaskBiz');
 var clientBiz = require('./biz/clientBiz');
 var projectBiz = require('./biz/projectBiz');
+var stableTableBiz = require('./biz/stableTableBiz');
 
 exports.routePaths = {
     get:[
@@ -20,9 +21,11 @@ exports.routePaths = {
         {path:'/client/my/count',function:clientBiz.getMyCountFE},
         {path:'/project/my/list',function:projectBiz.getMyListFE},
         {path:'/project/my/count',function:projectBiz.getMyCountFE},
+        {path:'/client_status/list',function:stableTableBiz.getClientStatusList},
         {path:'/session',function:userBiz.session}
     ],
     post:[
+        {path:'/client/add',function:clientBiz.add},
         {path:'/user/login',function:userBiz.login}
     ],
     delete:[],

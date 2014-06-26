@@ -4,12 +4,12 @@
 
 var config = require('./router_config');
 var forbiddenPaths = config.forbiddenPaths;
-var logger = require('util/logger').logger;
+var logger = require('./util/logger').logger;
 
 function setRouter(router) {
     // before all
     router.use(function(req, res, next) {
-        logger.info('router.use %s %s %s', req.method, req.url, req.path);
+        logger.debug('router.use %s %s %s', req.method, req.url, req.path);
         if(hasAuthorization(req,res)) {
             if (!isForbidden(req, res))
                 next();

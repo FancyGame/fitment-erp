@@ -23,6 +23,14 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
             templateUrl: './view/_client_list.html',
             controller: 'clientListController'
         })
+        .when('/client_add_update', {
+            templateUrl: './view/_client_add_update.html',
+            controller: 'clientAddUpdateController'
+        })
+        .when('/client_add_update/:clientId', {
+            templateUrl: './view/_client_add_update.html',
+            controller: 'clientAddUpdateController'
+        })
         .when('/project_list', {
             templateUrl: './view/_project_list.html',
             controller: 'projectListController'
@@ -109,6 +117,7 @@ app.controller("indexController", ['$rootScope','$scope','Ajax','$browser','$q',
         {url:"javascript:;",name:"客户管理",class:"icon-group",active:false,subTabStyle:{display:'none'},open:false,
             subTabs:[
                 {url:"#/client_list",name:"客户列表",active:false},
+                {url:"#/client_add_update",name:"新建客户",active:false},
                 {url:"#/mainboard",name:"def",active:false}
             ]
         },

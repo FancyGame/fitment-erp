@@ -55,6 +55,7 @@
                 {css:'',js:'clientListController.js'},
                 {css:'',js:'projectListController.js'},
                 {css:'',js:'clientListController.js'},
+                {css:'',js:'clientAddUpdateController.js'},
                 {css:'',js:'workTaskController.js'}
             ];
             for(var i in gJsCssArray) {
@@ -395,7 +396,7 @@
                                 <li ng-class="{active:subTab.active}" ng-repeat="subTab in tab.subTabs">
                                     <a href="{{subTab.url}}" ng-click="onTabClick(subTab,tab)" >
                                         <i class="icon-double-angle-right"></i>
-                                        {{subTab.name}}
+                                        <span class="icon-caret-right"></span> {{subTab.name}}
                                     </a>
                                 </li>
                             </ul>

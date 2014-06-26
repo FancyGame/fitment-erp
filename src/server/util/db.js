@@ -36,7 +36,7 @@ var pool = mysql.createPool({
  * @parameter params sql中?对应的数据,数组类型
  * @return promise
  * */
-var query = function(sql,params) {
+var _query = function(sql,params) {
     var deferred = Q.defer();
     var formatSQL = params ? mysql.format(sql,params) : sql;
     logger.debug('db.query, sql = %s',formatSQL);
@@ -50,7 +50,7 @@ var query = function(sql,params) {
     });
     return deferred.promise;
 };
-exports.query = query;
+exports.query = _query;
 
 /**
  * 开始初始化db的数据
@@ -65,7 +65,7 @@ var tableFields = {};
  * @return promise
  * */
 var descSQL = "select table_name,column_name,data_type,character_maximum_length,column_key,extra from information_schema.columns where table_schema='"+dbName+"' order by table_name";
-query(descSQL).then(function(rows){
+_query(descSQL).then(function(rows){
     var tableCount = 0;
     for(var i in rows) {
         var row = rows[i];
@@ -141,7 +141,7 @@ var _select = function(tableName,objWhere,sqlOrder) {
         sql = sql + " where " + sqlWhere;
     if(sqlOrder)
         sql += sqlOrder;
-    return query(sql);
+    return _query(sql);
 };
 exports.select = _select;
 
@@ -150,7 +150,7 @@ var _update = function(tableName,objSet,objWhere) {
     var sqlWhere = pool.escape(objWhere).replace(/,/g,' and');
     if(sqlWhere && sqlWhere.length>0)
         sql = sql + " where " + sqlWhere;
-    return query(sql,objSet);
+    return _query(sql,objSet);
 };
 exports.update = _update;
 
@@ -159,7 +159,7 @@ var _delete = function(tableName,objWhere) {
     var sqlWhere = pool.escape(objWhere).replace(/,/g,' and');
     if(sqlWhere && sqlWhere.length>0)
         sql = sql + " where " + sqlWhere;
-    return query(sql);
+    return _query(sql);
 };
 exports.delete = _delete;
 /**
@@ -168,7 +168,7 @@ exports.delete = _delete;
  * */
 var _insert = function(tableName,objSet) {
     var sql = "insert into "+tableName+" set ?";
-    return query(sql,objSet);
+    return _query(sql,objSet);
 };
 exports.insert = _insert;
 /**
@@ -181,7 +181,7 @@ exports.insert = _insert;
  * */
 var _count = function(tableName,objWhere) {
     var sql = "select count(*) as count from `"+tableName+"`";
-    return query(sql,objWhere);
+    return _query(sql,objWhere);
 };
 exports.count = _count;
 
