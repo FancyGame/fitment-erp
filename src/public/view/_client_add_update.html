@@ -1,4 +1,4 @@
-<div id="main_board_view" class="page-content">
+<div id="client_add_update_view" class="page-content">
     <div class="col-xs-12  widget-container-span ui-sortable">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
@@ -14,23 +14,24 @@
             <div class="widget-body">
                 <div class="widget-main no-padding">
                     <div class="space-6"></div>
-<form class="form-horizontal">
+
+<form name="client_add_update_form" class="form-horizontal form-validation" novalidate="novalidate" >
     <div class="form-group">
         <label class="col-sm-2 control-label no-padding-right" > 客户名称 </label>
         <div class="col-sm-10">
-            <input ng-model="client.name" type="text" placeholder="客户名称" class="col-xs-10 col-sm-8">
+            <input ng-model="client.name" type="text" placeholder="客户名称,必填,最大长度100" required ng-maxlength="100" class="col-xs-10 col-sm-8">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label no-padding-right" > 客户地址 </label>
         <div class="col-sm-10">
-            <input ng-model="client.address" type="text" placeholder="客户地址" class="col-xs-10 col-sm-8">
+            <input ng-model="client.address" type="text" placeholder="客户地址,最大长度200" ng-maxlength="200" class="col-xs-10 col-sm-8">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label no-padding-right" > 联系电话 </label>
         <div class="col-sm-10">
-            <input ng-model="client.phone" type="text" placeholder="客户名称" class="col-xs-10 col-sm-8">
+            <input ng-model="client.phone" type="text" placeholder="联系电话,最大长度20" ng-maxlength="20" class="col-xs-10 col-sm-8">
         </div>
     </div>
     <div class="form-group">
@@ -44,14 +45,14 @@
     <div class="form-group">
         <label class="col-sm-2 control-label no-padding-right" > 备注 </label>
         <div class="col-sm-10">
-            <input ng-model="client.comment" type="text" placeholder="备注" class="col-xs-10 col-sm-8">
+            <input ng-model="client.comment" type="text" placeholder="备注,最大长度1000" ng-maxlength="1000" class="col-xs-10 col-sm-8">
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-2 control-label no-padding-right">
         </div>
         <div class="col-sm-10">
-            <button class="btn btn-success" style="padding:0px 8px;" ng-click="onSubmit()">确定</button>
+            <button class="btn btn-success" style="padding:0px 8px;" ng-click="onSubmit(client_add_update_form.$valid)">确定</button>
             <button type="reset" class="btn" style="padding:0px 8px;margin-left:100px;">重置</button>
         </div>
     </div>
@@ -65,3 +66,4 @@
     </div>
     <div class="col-xs-12 space-6"></div>
 </div>
+<div id="mask" style="display: none;position: absolute;opacity: 0.7;background-color:white;border:1px solid black;">mask</div>

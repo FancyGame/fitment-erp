@@ -18,6 +18,7 @@ exports.add = function(req,res) {
 //    obj.name = req.body.name;
 //    obj.address = req.body.address;
     console.log(req.body);
+    //TODO: 下面这两个回调, 可以简化为Common方法,以便通用
     db.insert(dao.tableName,req.body).then(function(rows){
         res.send(rows);
     }).fail(function(error){

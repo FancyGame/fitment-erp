@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" ng-app="app_main" ng-controller="indexController">
 	<head>
 		<meta charset="utf-8" />
@@ -55,7 +55,7 @@
                 {css:'',js:'clientListController.js'},
                 {css:'',js:'projectListController.js'},
                 {css:'',js:'clientListController.js'},
-                {css:'',js:'clientAddUpdateController.js'},
+                {css:'clientAddUpdate.css',js:'clientAddUpdateController.js'},
                 {css:'',js:'workTaskController.js'}
             ];
             for(var i in gJsCssArray) {
@@ -412,8 +412,9 @@
 					</script>
 				</div>
 
-				<div class="main-content">
+				<div id="main-content" class="main-content">
                     <div id="ngViewDiv" ng-view ></div>
+                    <div style="clear:both;"></div><!-resize height of main-container->
 				</div><!-- /.main-content -->
 			</div><!-- /.main-container-inner -->
 		</div><!-- /.main-container -->
@@ -479,6 +480,7 @@
         <script src="js/lib/bindonce.js"></script>
         <script src="js/lib/ng-infinite-scroll.js"></script>
         <script src="js/lib/angular-chosen.js"></script>
+        <!--<script src="js/lib-3rd/loading-min.js"></script>-->
         <script>
             //Ken, separate with ng_module.js, login page don't need these services below
             var app = angular.module("app_main", ['ngRoute','localytics.directives','infinite-scroll','pasvaz.bindonce']);
