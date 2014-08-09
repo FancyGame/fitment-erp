@@ -90,13 +90,19 @@ function wc(s){
     return watchers;
 }
 
-app.controller("indexController", ['$rootScope','$scope','Ajax','$browser','$q',
-    function($rootScope,$scope,Ajax,$browser,$q) {
+app.controller("indexController", ['$rootScope','$scope','Ajax','$browser','$q','cfpLoadingBar',
+    function($rootScope,$scope,Ajax,$browser,$q,cfpLoadingBar) {
+
+    cfpLoadingBar.start();
+    cfpLoadingBar.set(0);
+    cfpLoadingBar.inc();
 
     Ajax.get("/user/getCurUser").then(function(user){
         $rootScope.curUser = user;
+        cfpLoadingBar.set(0.5);
         Ajax.get("/company/getCompany/"+$rootScope.curUser.cid).then(function(company){
             $rootScope.curCompany = company;
+            cfpLoadingBar.complete();
         });
     });
 

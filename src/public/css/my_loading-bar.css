@@ -1,0 +1,15 @@
+#loading-bar .bar {
+    background: darkorange;
+}
+
+/* Fancy blur effect */
+#loading-bar .peg {
+    -moz-box-shadow: darkorange 1px 0 18px 1px;
+    -ms-box-shadow: darkorange 1px 0 18px 1px;
+    -webkit-box-shadow: darkorange 1px 0 18px 1px;
+    box-shadow: darkorange 1px 0 18px 1px;
+}
+#loading-bar-spinner .spinner-icon {
+    border-top-color:  darkorange;
+    border-left-color: darkorange;
+}

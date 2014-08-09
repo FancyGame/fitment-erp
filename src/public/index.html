@@ -48,6 +48,8 @@
         <!-- Particular -->
         <link rel="stylesheet" href="css/lib/font-awesome.min.css" />
         <link rel="stylesheet" href="css/common.css" />
+        <link rel="stylesheet" href="js/lib-3rd/loading-bar/loading-bar.css" />
+        <link rel="stylesheet" href="css/my_loading-bar.css"/>
         <script>
             var gJsCssArray = [
                 {css:'index.css',js:'indexController.js'},
@@ -56,7 +58,7 @@
                 {css:'',js:'projectListController.js'},
                 {css:'',js:'clientListController.js'},
                 {css:'clientAddUpdate.css',js:'clientAddUpdateController.js'},
-                {css:'',js:'workTaskController.js'}
+                {css:'',js:'workTaskController.js'},
             ];
             for(var i in gJsCssArray) {
                 var css = gJsCssArray[i].css;
@@ -475,15 +477,17 @@
         <!---->
 
         <script src="js/lib-3rd/angular_1.3.0.js"></script>
+        <script src="js/lib/ng.1.2.6/angular-animate.min.js"></script>
         <script src="js/lib-3rd/jquery.cookie.js"></script>
         <script src="js/lib/ng.1.2.6/angular-route.min.js"></script>
         <script src="js/lib/bindonce.js"></script>
         <script src="js/lib/ng-infinite-scroll.js"></script>
         <script src="js/lib/angular-chosen.js"></script>
+        <script src="js/lib-3rd/loading-bar/loading-bar.js"></script>
         <!--<script src="js/lib-3rd/loading-min.js"></script>-->
         <script>
             //Ken, separate with ng_module.js, login page don't need these services below
-            var app = angular.module("app_main", ['ngRoute','localytics.directives','infinite-scroll','pasvaz.bindonce']);
+            var app = angular.module("app_main", ['ngRoute','localytics.directives','infinite-scroll','pasvaz.bindonce','cfp.loadingBar']);
         </script>
         <script src="js/ng_module.js"></script>
         <script src="js/util.js"></script>

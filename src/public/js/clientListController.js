@@ -2,11 +2,15 @@
  * Created by Ken on 2014-6-24.
  */
 
-app.controller("clientListController", ['$rootScope','$scope','Ajax','$location',function($rootScope,$scope,Ajax ,$location) {
+app.controller("clientListController", ['$rootScope','$scope','Ajax','$location','cfpLoadingBar','$q',function($rootScope,$scope,Ajax ,$location,cfpLoadingBar,$q) {
     $scope.clients = [];
 
-    Ajax.get('/client/my/list').then(function(data){
+    cfpLoadingBar.start();
+    cfpLoadingBar.inc();
+
+    Ajax.get('/client/my').then(function(data){
         $scope.clients = data;
+        cfpLoadingBar.complete();
     });
 
     //move page-content a little bit down in case of tabs cover part of it

@@ -26,6 +26,16 @@ var pool = mysql.createPool({
 //    console.log('rows',rows);
 //});
 //console.log("pool.query ret=",ret);
+
+//var sql = 'insert into test(name,dd,time) values(?,?,?)';
+//var paramArr = [],i=0;
+//paramArr[i++] = 'gk';
+//paramArr[i++] = 'cy';
+//paramArr[i++] = null;
+//console.log(paramArr.length,paramArr);
+//pool.query(sql,paramArr,function(error,rows){
+//    console.log(error, rows);
+//});
 //=============
 
 /**
