@@ -7,6 +7,7 @@ app.controller("workTaskController", ['$rootScope','$scope','Ajax','$location','
     $scope.tasks = [];
 
     cfpLoadingBar.start();
+    cfpLoadingBar.set(0);
     cfpLoadingBar.inc();
 
     Ajax.get('/work_task/my').then(function(data){

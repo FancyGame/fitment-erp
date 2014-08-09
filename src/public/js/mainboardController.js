@@ -11,8 +11,7 @@ app.controller("mainboardController", ['$rootScope','$scope','Ajax','$location',
 
     Ajax.get('/work_task/my/count').then(function(data){
         $scope.taskCount = data.count;
-        cfpLoadingBar.set(1);
-//        cfpLoadingBar.complete();
+        cfpLoadingBar.complete();
     });
 
     //move page-content a little bit down in case of tabs cover part of it

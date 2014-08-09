@@ -6,6 +6,7 @@ app.controller("clientListController", ['$rootScope','$scope','Ajax','$location'
     $scope.clients = [];
 
     cfpLoadingBar.start();
+    cfpLoadingBar.set(0);
     cfpLoadingBar.inc();
 
     Ajax.get('/client/my').then(function(data){
