@@ -133,24 +133,41 @@ function getField(tableName,fieldName) {
     return null;
 }
 
-
+//Sql Example: select id,name from TABLE_NAME where id=1 and name='abc' group by id order by id limit 0,100;
 /**
  * @Author Ken
  * @description CRUD 操作 只提供对单表的CRUD基本操作,如需高级功能还需要调用query方法
- * @LastUpdateDate 2014-06-17
+ * @LastUpdateDate 2014-08-09
  * @parameter tableName
- * @parameter objWhere 根据此参数的属性组合sql
- * @parameter objSet 为update,insert语句使用
- * @parameter sqlOrder 为select语句使用
+ * @parameter objWhere
+ * @parameter params     //根据此参数的属性组合sql
+ * Example:
+ *  {
+ *      group : 'id,name',
+ *      order : 'id,name desc',
+ *      limit : [0,100],
+ *      page  : [0,20] //第0页, 每页20个  Note:limit 与 page 同时存在时, limit优先
+ *  }
+ *  Demo:
+ *   db.select('client',{id:1},{group:'id,name',order:'id,name desc',limit:[0,2]});
+ *  Sql :
+ *   select * from `client` where `id` = 1 group by id,name order by id,name desc limit 0,2
  * @return promise
  * */
-var _select = function(tableName,objWhere,sqlOrder) {
+var _select = function(tableName,objWhere,params) {
     var sql = "select * from `"+tableName+"`";
-    var sqlWhere = pool.escape(objWhere).replace(/,/g,' and');
-    if(sqlWhere && sqlWhere.length>0)
-        sql = sql + " where " + sqlWhere;
-    if(sqlOrder)
-        sql += sqlOrder;
+    //objWhere,sqlOrder
+    if(objWhere) {
+        var sqlWhere = pool.escape(objWhere).replace(/,/g,' and');
+        if(sqlWhere && sqlWhere.length>0)
+            sql = sql + " where " + sqlWhere;
+    }
+    if(params) {
+        if(params.group) sql = sql + " group by " + params.group;
+        if(params.order) sql = sql + " order by " + params.order;
+        if(params.limit) sql = sql + " limit " + params.limit[0] + ',' + params.limit[1];
+        else if(params.page) sql = sql + " limit " + (params.page[0]-1)*params.page[1] + ',' + params.page[0]*params.page[1];
+    }
     return _query(sql);
 };
 exports.select = _select;
@@ -198,15 +215,29 @@ exports.count = _count;
 /**
  * @Author Ken
  * @description 通用的count方法,获取数据的条数
- * @LastUpdateDate 2014-06-24
+ * @LastUpdateDate 2014-08-09
  * @parameter tableName
- * @parameter obj 根据此参数的属性组合sql
+ * @parameter objWhere 根据此参数的属性组合sqlWhere
  * @parameter req request
  * @parameter res response
  * @return promise
  * */
-exports.getList = function(tableName,obj,req,res) {
-    _select(tableName,obj).then(function(rows){
+exports.getList = function(tableName,objWhere,params,req,res) {
+    if(arguments.length<3 || arguments.length>5) {
+        logger.error("Error: params length is wrong [db.getList]");
+    }
+    else if(arguments.length==3) {
+        req = objWhere;
+        res = params;
+        objWhere = null;
+        params = null;
+    }
+    else if(arguments.length==4) {
+        res = req;
+        req = params;
+        params = null;
+    }
+    _select(tableName,objWhere,params).then(function(rows){
         if(rows.length>0) {
             res.send(rows);
         }

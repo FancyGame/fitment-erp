@@ -5,6 +5,7 @@
  */
 
 var db = require('../util/db');
+var logger = require('../util/logger').logger;
 
 /**
  * Please put all table names that you want to cache in memory into this array.
@@ -18,11 +19,12 @@ var stableTableNames = ['client_status','hx','province','city','khly','project_s
  * */
 for(var i in stableTableNames) {
     (function(tableName){
-        db.select(tableName,{}).then(function(rows){
+        db.select(tableName).then(function(rows){
             exports[tableName+'List'] = rows;
         });
     })(stableTableNames[i]);
 }
+logger.info("All stable tables (%d) are cached",stableTableNames.length);
 
 exports.getClientStatusList = function(req,res) {
     res.send(exports.client_statusList);
