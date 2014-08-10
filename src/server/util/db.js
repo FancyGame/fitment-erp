@@ -166,7 +166,7 @@ var _select = function(tableName,objWhere,params) {
         if(params.group) sql = sql + " group by " + params.group;
         if(params.order) sql = sql + " order by " + params.order;
         if(params.limit) sql = sql + " limit " + params.limit[0] + ',' + params.limit[1];
-        else if(params.page) sql = sql + " limit " + (params.page[0]-1)*params.page[1] + ',' + params.page[0]*params.page[1];
+        else if(params.page) sql = sql + " limit " + (params.page[0]-1)*params.page[1] + ',' + params.page[1];
     }
     return _query(sql);
 };
@@ -236,6 +236,19 @@ exports.getList = function(tableName,objWhere,params,req,res) {
         res = req;
         req = params;
         params = null;
+    }
+    if(req.query.pageNo || req.query.pageCount) {
+        if(!params) {
+            params = {page:[]};
+        }
+        if(req.query.pageNo)
+            params.page.push(req.query.pageNo);
+        else
+            params.page.push(1);
+        if(req.query.pageCount)
+            params.page.push(req.query.pageCount);
+        else
+            params.page.push(10);
     }
     _select(tableName,objWhere,params).then(function(rows){
         if(rows.length>0) {

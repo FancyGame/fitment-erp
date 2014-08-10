@@ -484,12 +484,16 @@
         <script src="js/lib/ng-infinite-scroll.js"></script>
         <script src="js/lib/angular-chosen.js"></script>
         <script src="js/lib-3rd/loading-bar/loading-bar.js"></script>
+        <script src="js/lib-3rd/ui-bootstrap-tpls-0.11.0.js"></script>
         <!--<script src="js/lib-3rd/loading-min.js"></script>-->
         <script>
             //Ken, separate with ng_module.js, login page don't need these services below
-            var app = angular.module("app_main", ['ngRoute','localytics.directives','infinite-scroll','pasvaz.bindonce','cfp.loadingBar']);
+            var app = angular.module("app_main", ['ngRoute','localytics.directives','infinite-scroll','pasvaz.bindonce','cfp.loadingBar','ui.bootstrap']);
         </script>
-        <script src="js/ng_module.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/service.js"></script>
+        <script src="js/directive.js"></script>
+        <script src="js/global_func.js"></script>
         <script src="js/util.js"></script>
         <script>
             for(var i in gJsCssArray) {
