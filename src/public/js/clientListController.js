@@ -7,20 +7,41 @@ app.controller("clientListController", ['$rootScope','$scope','Ajax','$location'
 
     LoadingBarBegin(cfpLoadingBar);
 
-    $scope.pageCount = 2;
+    $scope.pageCount = 5;
+    $scope.keyword = '';
     $scope.currentPage = $routeParams.page ? $routeParams.page : 1;
     Ajax.get('/client/my/count').then(function(data){
         $scope.totalItemCount = data ? data.count : 0;
         LoadingBarEnd(cfpLoadingBar);
     });
 
-    $scope.$watch('currentPage',function(to,from){
-        LoadingBarBegin(cfpLoadingBar);
-        Ajax.get('/client/my?pageNo='+$scope.currentPage+'&pageCount='+$scope.pageCount).then(function(data){
+    function LoadClient() {
+        var urlCount = '/client/my/count';
+        var url = '/client/my?pageNo='+$scope.currentPage+'&pageCount='+$scope.pageCount;
+        if($scope.keyword.length>0) {
+            urlCount += '?keyword='+$scope.keyword;
+            url += '&keyword='+$scope.keyword;
+        }
+
+        Ajax.get(urlCount).then(function(data){
+            $scope.totalItemCount = data ? data.count : 0;
+            LoadingBarEnd(cfpLoadingBar);
+        });
+
+        Ajax.get(url).then(function(data){
             $scope.clients = data;
             LoadingBarEnd(cfpLoadingBar);
         });
+    }
+
+    $scope.$watch('currentPage',function(to,from){
+        LoadingBarBegin(cfpLoadingBar);
+        LoadClient();
     });
+
+    $scope.onSearch = function() {
+        LoadClient();
+    };
 
     //move page-content a little bit down in case of tabs cover part of it
     OnViewLoad();

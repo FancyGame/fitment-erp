@@ -7,11 +7,19 @@ var db = require('../util/db');
 var logger = require('../util/logger').logger;
 
 exports.getMyListFE = function(req,res) {
-    return db.getList(dao.tableName,{oid:req.session.userId,del:0},req,res);
+    var whereParam = {oid:req.session.userId,del:0};
+    if(req.query.keyword) {
+        whereParam = "oid="+req.session.userId+" and del=0 and name like '%"+req.query.keyword+"%'";
+    }
+    return db.getList(dao.tableName,whereParam,req,res);
 };
 
 exports.getMyCountFE = function(req,res) {
-    return db.getCount(dao.tableName,{oid:req.session.userId,del:0},req,res);
+    var whereParam = {oid:req.session.userId,del:0};
+    if(req.query.keyword) {
+        whereParam = "oid="+req.session.userId+" and del=0 and name like '%"+req.query.keyword+"%'";
+    }
+    return db.getCount(dao.tableName,whereParam,req,res);
 };
 exports.add = function(req,res) {
 //    var obj = {};

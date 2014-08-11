@@ -137,7 +137,7 @@ function getField(tableName,fieldName) {
 /**
  * @Author Ken
  * @description CRUD 操作 只提供对单表的CRUD基本操作,如需高级功能还需要调用query方法
- * @LastUpdateDate 2014-08-09
+ * @LastUpdateDate 2014-08-10
  * @parameter tableName
  * @parameter objWhere
  * @parameter params     //根据此参数的属性组合sql
@@ -156,13 +156,16 @@ function getField(tableName,fieldName) {
  * */
 var _select = function(tableName,objWhere,params) {
     var sql = "select * from `"+tableName+"`";
-    //objWhere,sqlOrder
-    if(objWhere) {
+    if(typeof objWhere == 'object') {
         var sqlWhere = pool.escape(objWhere).replace(/,/g,' and');
         if(sqlWhere && sqlWhere.length>0)
             sql = sql + " where " + sqlWhere;
     }
+    else if(typeof objWhere == 'string') {
+        sql = sql + " where " + objWhere;
+    }
     if(params) {
+        if(params.select) sql = sql.replace('*', params.select);
         if(params.group) sql = sql + " group by " + params.group;
         if(params.order) sql = sql + " order by " + params.order;
         if(params.limit) sql = sql + " limit " + params.limit[0] + ',' + params.limit[1];
@@ -171,6 +174,10 @@ var _select = function(tableName,objWhere,params) {
     return _query(sql);
 };
 exports.select = _select;
+logger.debug('===============Test Start=============');
+_select('client',{id:1},{group:'id,name',order:'id,name desc',limit:[0,2]});
+_select('client',"name like '%a%' ",{group:'id,name',order:'id,name desc',limit:[0,2]});
+logger.debug('---------------Test   End-------------');
 
 var _update = function(tableName,objSet,objWhere) {
     var sql = "update `"+tableName+"` set ?";
@@ -208,7 +215,16 @@ exports.insert = _insert;
  * */
 var _count = function(tableName,objWhere) {
     var sql = "select count(*) as count from `"+tableName+"`";
-    return _query(sql,objWhere);
+
+    if(typeof objWhere == 'object') {
+        var sqlWhere = pool.escape(objWhere).replace(/,/g,' and');
+        if(sqlWhere && sqlWhere.length>0)
+            sql = sql + " where " + sqlWhere;
+    }
+    else if(typeof objWhere == 'string') {
+        sql = sql + " where " + objWhere;
+    }
+    return _query(sql);
 };
 exports.count = _count;
 
