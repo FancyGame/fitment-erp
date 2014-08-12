@@ -9,3 +9,21 @@
 .row {
     margin:0px;
 }
+.search-div {
+    margin:5px 0px;
+    height:35px;
+    line-height: 35px;
+}
+.search-div #filter_label {
+    font-size:14pt;
+    color: rgb(67, 131, 180);
+}
+.search-div #filter_keyword,
+.search-div #filter_search_btn
+{
+    margin-left:10px;
+}
+.search-div #filter_search_btn
+{
+    margin-bottom:5px;
+}

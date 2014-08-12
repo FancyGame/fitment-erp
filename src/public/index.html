@@ -484,10 +484,12 @@
         <script src="js/lib/angular-chosen.js"></script>
         <script src="js/lib-3rd/loading-bar/loading-bar.js"></script>
         <script src="js/lib-3rd/ui-bootstrap-tpls-0.11.0.js"></script>
+        <!--<script src="js/lib-3rd/ng-context-menu.js"></script>-->
         <!--<script src="js/lib-3rd/loading-min.js"></script>-->
         <script>
             //Ken, separate with ng_module.js, login page don't need these services below
-            var app = angular.module("app_main", ['ngRoute','localytics.directives','infinite-scroll','pasvaz.bindonce','cfp.loadingBar','ui.bootstrap']);
+            var app = angular.module("app_main", ['ngRoute','localytics.directives','infinite-scroll','pasvaz.bindonce',
+                'cfp.loadingBar','ui.bootstrap']);
         </script>
         <script src="js/config.js"></script>
         <script src="js/service.js"></script>

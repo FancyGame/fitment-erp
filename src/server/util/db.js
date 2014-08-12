@@ -271,7 +271,7 @@ exports.getList = function(tableName,objWhere,params,req,res) {
             res.send(rows);
         }
         else {
-            res.send("false");
+            res.send([]);
         }
     },function(error){
         res.status(500);
@@ -297,6 +297,24 @@ exports.getCount = function(tableName,obj,req,res) {
         res.status(500);
         res.end();
     });
+};
+/**
+ * @Author Ken
+ * @description 格式化字符串, 以便sql能正确处理
+ * @LastUpdateDate 2014-08-12
+ * @parameter str
+ * @return str after be formatted
+ * @example:
+ *      formatString("ab'c") = ab\'c; //we use '' to define sql string, so we just need to care about ', not "
+ * */
+exports.formatString = function(str) {
+    var ret = "";
+    if(str) {
+        ret = str.replace(/'/,"\\'");
+        return ret;
+    }
+    else
+        return ret;
 };
 
 

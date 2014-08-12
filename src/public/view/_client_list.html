@@ -16,10 +16,10 @@
             <div class="widget-body">
                 <div class="widget-main no-padding">
                     <div class="row">
-                        <div class="col-xs-12">
-                            Filter:
-                            <input type="text" ng-model="keyword" placeholder="keyword"/>
-                            <button class="btn btn-info" ng-click="onSearch()">Search</button>
+                        <div class="col-xs-12 search-div">
+                            <span id="filter_label">搜索:</span>
+                            <input id="filter_keyword" type="text" ng-model="keyword" placeholder="keyword"/>
+                            <button id="filter_search_btn" class="btn btn-info" ng-click="onSearch()">Go</button>
                         </div>
                     </div>
                     <div class="row" style="background-color: #EFF3F8;">
@@ -47,7 +47,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="client in clients">
+                        <tr ng-repeat="client in clients" ng-context-menu="menuOptions">
                             <td ng-bind="client.name"></td>
                             <td ng-bind="client.address"></td>
                             <td ng-bind="client.phone"></td>

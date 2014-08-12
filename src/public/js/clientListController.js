@@ -43,6 +43,23 @@ app.controller("clientListController", ['$rootScope','$scope','Ajax','$location'
         LoadClient();
     };
 
+    $scope.menuOptions = [
+        [
+            {class:'icon-edit green',css:{}},
+            '编辑',
+            function ($itemScope) {
+                console.log($itemScope.client.name);
+            }
+        ],
+        [
+            {class:'icon-trash red',css:{}},
+            '删除',
+            function ($itemScope) {
+                console.log('sell');
+            }
+        ]
+    ];
+
     //move page-content a little bit down in case of tabs cover part of it
     OnViewLoad();
 }] );

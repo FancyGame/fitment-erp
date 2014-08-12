@@ -9,7 +9,14 @@ var logger = require('../util/logger').logger;
 exports.getMyListFE = function(req,res) {
     var whereParam = {oid:req.session.userId,del:0};
     if(req.query.keyword) {
-        whereParam = "oid="+req.session.userId+" and del=0 and name like '%"+req.query.keyword+"%'";
+        whereParam = "oid="+req.session.userId+" and del=0";
+        var arr = ['name','address','phone','comment'];
+        var searchSql = 'false';
+        var keyword = db.formatString(req.query.keyword);
+        for(var i in arr) {
+            searchSql += " or "+arr[i]+" like '%"+keyword+"%'";
+        }
+        whereParam += ' and ('+searchSql+')';
     }
     return db.getList(dao.tableName,whereParam,req,res);
 };
@@ -17,7 +24,14 @@ exports.getMyListFE = function(req,res) {
 exports.getMyCountFE = function(req,res) {
     var whereParam = {oid:req.session.userId,del:0};
     if(req.query.keyword) {
-        whereParam = "oid="+req.session.userId+" and del=0 and name like '%"+req.query.keyword+"%'";
+        whereParam = "oid="+req.session.userId+" and del=0";
+        var arr = ['name','address','phone','comment'];
+        var searchSql = 'false';
+        var keyword = db.formatString(req.query.keyword);
+        for(var i in arr) {
+            searchSql += " or "+arr[i]+" like '%"+keyword+"%'";
+        }
+        whereParam += ' and ('+searchSql+')';
     }
     return db.getCount(dao.tableName,whereParam,req,res);
 };
