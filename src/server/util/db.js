@@ -139,7 +139,7 @@ function getField(tableName,fieldName) {
  * @description CRUD 操作 只提供对单表的CRUD基本操作,如需高级功能还需要调用query方法
  * @LastUpdateDate 2014-08-10
  * @parameter tableName
- * @parameter objWhere
+ * @parameter whereParam
  * @parameter params     //根据此参数的属性组合sql
  * Example:
  *  {
@@ -154,15 +154,15 @@ function getField(tableName,fieldName) {
  *   select * from `client` where `id` = 1 group by id,name order by id,name desc limit 0,2
  * @return promise
  * */
-var _select = function(tableName,objWhere,params) {
+var _select = function(tableName,whereParam,params) {
     var sql = "select * from `"+tableName+"`";
-    if(typeof objWhere == 'object') {
-        var sqlWhere = pool.escape(objWhere).replace(/,/g,' and');
+    if(typeof whereParam == 'object') {
+        var sqlWhere = pool.escape(whereParam).replace(/,/g,' and');
         if(sqlWhere && sqlWhere.length>0)
             sql = sql + " where " + sqlWhere;
     }
-    else if(typeof objWhere == 'string') {
-        sql = sql + " where " + objWhere;
+    else if(typeof whereParam == 'string') {
+        sql = sql + " where " + whereParam;
     }
     if(params) {
         if(params.select) sql = sql.replace('*', params.select);
@@ -210,19 +210,19 @@ exports.insert = _insert;
  * @description 通用的count方法,获取数据的条数
  * @LastUpdateDate 2014-06-24
  * @parameter tableName
- * @parameter objWhere 根据此参数的属性组合sql
+ * @parameter whereParam 根据此参数的属性组合sql
  * @return promise
  * */
-var _count = function(tableName,objWhere) {
+var _count = function(tableName,whereParam) {
     var sql = "select count(*) as count from `"+tableName+"`";
 
-    if(typeof objWhere == 'object') {
-        var sqlWhere = pool.escape(objWhere).replace(/,/g,' and');
+    if(typeof whereParam == 'object') {
+        var sqlWhere = pool.escape(whereParam).replace(/,/g,' and');
         if(sqlWhere && sqlWhere.length>0)
             sql = sql + " where " + sqlWhere;
     }
-    else if(typeof objWhere == 'string') {
-        sql = sql + " where " + objWhere;
+    else if(typeof whereParam == 'string') {
+        sql = sql + " where " + whereParam;
     }
     return _query(sql);
 };
