@@ -9,7 +9,7 @@ app.controller("mainboardController", ['$rootScope','$scope','Ajax','$location',
     cfpLoadingBar.set(0);
     cfpLoadingBar.inc();
 
-    Ajax.get('/work_task/my/count').then(function(data){
+    Ajax.get('/work_task_count/my').then(function(data){
         $scope.taskCount = data.count;
         cfpLoadingBar.complete();
     });

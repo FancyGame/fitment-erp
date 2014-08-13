@@ -6,13 +6,11 @@ app.controller("workTaskController", ['$rootScope','$scope','Ajax','$location','
     $scope.text = "工作任务";
     $scope.tasks = [];
 
-    cfpLoadingBar.start();
-    cfpLoadingBar.set(0);
-    cfpLoadingBar.inc();
+    LoadingBarBegin(cfpLoadingBar);
 
     Ajax.get('/work_task/my').then(function(data){
         $scope.tasks = data;
-        cfpLoadingBar.complete();
+        LoadingBarEnd(cfpLoadingBar);
     });
 
     //move page-content a little bit down in case of tabs cover part of it

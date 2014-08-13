@@ -6,3 +6,9 @@ var logger = require('../util/logger').logger;
 
 var tableName = 'client';
 exports.tableName = tableName;
+
+exports.getById = function(curUid,id) {
+    var whereParam = {oid:curUid,del:0};
+    whereParam.id = id;
+    return db.select(dao.tableName,whereParam);
+};

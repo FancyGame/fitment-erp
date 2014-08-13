@@ -10,13 +10,13 @@ app.controller("clientListController", ['$rootScope','$scope','Ajax','$location'
     $scope.pageCount = 5;
     $scope.keyword = '';
     $scope.currentPage = $routeParams.page ? $routeParams.page : 1;
-    Ajax.get('/client/my/count').then(function(data){
+    Ajax.get('/client_count/my').then(function(data){
         $scope.totalItemCount = data ? data.count : 0;
         LoadingBarEnd(cfpLoadingBar);
     });
 
     function LoadClient() {
-        var urlCount = '/client/my/count';
+        var urlCount = '/client_count/my';
         var url = '/client/my?pageNo='+$scope.currentPage+'&pageCount='+$scope.pageCount;
         if($scope.keyword.length>0) {
             urlCount += '?keyword='+$scope.keyword;

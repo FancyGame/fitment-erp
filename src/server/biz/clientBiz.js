@@ -49,3 +49,19 @@ exports.add = function(req,res) {
         res.end();
     });
 };
+
+exports.getById = function(req,res) {
+    var whereParam = {oid:req.session.userId,del:0};
+    whereParam.id = req.params.id;
+    db.select(dao.tableName,whereParam).then(function(rows){
+        if(rows.length>0) {
+            res.send(rows);
+        }
+        else {
+            res.send([]);
+        }
+    },function(error){
+        res.status(500);
+        res.end();
+    });
+};

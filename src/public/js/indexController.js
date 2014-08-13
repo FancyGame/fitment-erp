@@ -12,7 +12,7 @@ app.controller("indexController", ['$rootScope','$scope','Ajax','$browser','$q',
     Ajax.get("/user/getCurUser").then(function(user){
         $rootScope.curUser = user;
         cfpLoadingBar.set(0.5);
-        Ajax.get("/company/getCompany/"+$rootScope.curUser.cid).then(function(company){
+        Ajax.get("/company/"+$rootScope.curUser.cid).then(function(company){
             $rootScope.curCompany = company;
             cfpLoadingBar.complete();
         });
