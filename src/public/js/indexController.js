@@ -5,16 +5,14 @@
 app.controller("indexController", ['$rootScope','$scope','Ajax','$browser','$q','cfpLoadingBar',
     function($rootScope,$scope,Ajax,$browser,$q,cfpLoadingBar) {
 
-    cfpLoadingBar.start();
-    cfpLoadingBar.set(0);
-    cfpLoadingBar.inc();
+    LoadingBarBegin(cfpLoadingBar);
 
     Ajax.get("/user/getCurUser").then(function(user){
         $rootScope.curUser = user;
         cfpLoadingBar.set(0.5);
         Ajax.get("/company/"+$rootScope.curUser.cid).then(function(company){
             $rootScope.curCompany = company;
-            cfpLoadingBar.complete();
+            LoadingBarEnd(cfpLoadingBar);
         });
     });
 
