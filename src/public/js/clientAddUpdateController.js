@@ -7,7 +7,6 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
 
     if(!$scope.clientId) {
         //create client
-        $scope.clients = [];
         $scope.client = {};
 
         LoadingBarBegin(cfpLoadingBar);
@@ -16,7 +15,6 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
             Ajax.get('/client/my'),
             Ajax.get('/client_status')
         ]).then(function(dataArr) {
-            $scope.clients = dataArr[0];
             $scope.client_statusList = dataArr[1];
             $scope.client.status = $scope.client_statusList[0].id;
             LoadingBarEnd(cfpLoadingBar);
@@ -33,7 +31,7 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
             var client = $scope.client;
             client.cid = $rootScope.curUser.cid;
             client.oid = $rootScope.curUser.id;
-            Ajax.post('/client',$scope.client).then(function(data){
+            Ajax.post('/client',client).then(function(data){
                 alert("创建成功");
                 LoadingBarEnd(cfpLoadingBar);
             },function(error){
@@ -44,9 +42,35 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
     }
     else {
         //update client
-        Ajax.get('/client/my/'+$scope.clientId).then(function(data){
-            ;
+        LoadingBarBegin(cfpLoadingBar);
+
+        $q.all([
+            Ajax.get('/client/my/'+$scope.clientId),
+            Ajax.get('/client_status')
+        ]).then(function(dataArr) {
+            $scope.client = dataArr[0];
+            $scope.client_statusList = dataArr[1];
+            $scope.client.status = $scope.client.status;
+            LoadingBarEnd(cfpLoadingBar);
         });
+
+        $scope.onSubmit = function(isFormValid) {
+            if(!isFormValid) {
+                alert("表单数据不正确,请检查后重新提交");
+                return false;
+            }
+
+            LoadingBarBegin(cfpLoadingBar);
+            var client = {};
+            Object.copyAttrs($scope.client,client,['id','name','address','status','phone','comment']);
+            Ajax.put('/client',client).then(function(data){
+                LoadingBarEnd(cfpLoadingBar);
+                window.history.back();
+            },function(error){
+                alert("Update is wrong");
+                LoadingBarEnd(cfpLoadingBar);
+            });
+        };
     }
     //move page-content a little bit down in case of tabs cover part of it
     OnViewLoad();

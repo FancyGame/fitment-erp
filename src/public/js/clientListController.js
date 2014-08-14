@@ -45,17 +45,28 @@ app.controller("clientListController", ['$rootScope','$scope','Ajax','$location'
 
     $scope.menuOptions = [
         [
+            {class:'icon-plus red',css:{}},
+            '创建',
+            function ($itemScope) {
+                $location.path("/client_add");
+            }
+        ],
+        [
             {class:'icon-edit green',css:{}},
             '编辑',
             function ($itemScope) {
-                console.log($itemScope.client.name);
+                $location.path("/client_update/"+$itemScope.client.id);
             }
         ],
         [
             {class:'icon-trash red',css:{}},
             '删除',
             function ($itemScope) {
-                console.log('sell');
+                Ajax.delete("client/"+$itemScope.client.id).then(function(data){
+                    LoadClient();
+                },function(error){
+                    alert("delete error");
+                });
             }
         ]
     ];

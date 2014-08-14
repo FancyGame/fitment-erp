@@ -18,24 +18,27 @@ app.controller("indexController", ['$rootScope','$scope','Ajax','$browser','$q',
 
     $scope.tabs = [
         {url:"#/mainboard",name:"个人主页",class:"icon-home",active:true,open:false},
-        {url:"javascript:;",name:"任务管理",class:"icon-tasks",active:false,subTabStyle:{display:'none'},open:false,
-            subTabs:[
-                {url:"#/work_task",name:"任务列表",active:false},
-                {url:"#/mainboard",name:"def",active:false}
-            ]
+        {url:"#/work_task",name:"任务管理",class:"icon-tasks",active:false,subTabStyle:{display:'none'},open:false
+//            ,
+//            subTabs:[
+//                {url:"#/work_task",name:"任务列表",active:false},
+//                {url:"#/mainboard",name:"def",active:false}
+//            ]
         },
-        {url:"javascript:;",name:"工程管理",class:"icon-building",active:false,subTabStyle:{display:'none'},open:false,
-            subTabs:[
-                {url:"#/project_list",name:"工程列表",active:false},
-                {url:"#/mainboard",name:"def",active:false}
-            ]
+        {url:"#/project_list",name:"工程管理",class:"icon-building",active:false,subTabStyle:{display:'none'},open:false
+//            ,
+//            subTabs:[
+//                {url:"#/project_list",name:"工程列表",active:false},
+//                {url:"#/mainboard",name:"def",active:false}
+//            ]
         },
-        {url:"javascript:;",name:"客户管理",class:"icon-group",active:false,subTabStyle:{display:'none'},open:false,
-            subTabs:[
-                {url:"#/client_list",name:"客户列表",active:false},
-                {url:"#/client_add_update",name:"新建客户",active:false},
-                {url:"#/mainboard",name:"def",active:false}
-            ]
+        {url:"#/client_list",name:"客户管理",class:"icon-group",active:false,subTabStyle:{display:'none'},open:false
+//            ,
+//            subTabs:[
+//                {url:"#/client_list",name:"客户列表",active:false},
+//                {url:"#/client_add",name:"新建客户",active:false},
+//                {url:"#/mainboard",name:"def",active:false}
+//            ]
         },
         {url:"#",name:"资料管理",class:"icon-file-alt",active:false,open:false},
         {url:"#",name:"材料管理",class:"icon-inbox",active:false,open:false}

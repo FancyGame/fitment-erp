@@ -50,8 +50,12 @@ exports.routePaths = {
         {path:'/client',                    function:clientBiz['add']},
         {path:'/user/login',                function:userBiz['login']}
     ],
-    delete:[],
-    put:[]
+    delete:[
+        {path:'/client/:id',                function:clientBiz['delete']}
+    ],
+    put:[
+        {path:'/client',                    function:clientBiz['update']}
+    ]
 };
 
 exports.forbiddenPaths = [

@@ -31,11 +31,11 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
             templateUrl: './view/_client_list.html',
             controller: 'clientListController'
         })
-        .when('/client_add_update', {
+        .when('/client_add', {
             templateUrl: './view/_client_add_update.html',
             controller: 'clientAddUpdateController'
         })
-        .when('/client_add_update/:clientId', {
+        .when('/client_update/:clientId', {
             templateUrl: './view/_client_add_update.html',
             controller: 'clientAddUpdateController'
         })

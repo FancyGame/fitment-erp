@@ -132,3 +132,25 @@ MathUtil.min = function(){
     }
     return mix;
 };
+
+
+/**
+ * @Author Ken
+ * @date 2014-08-14
+ * @description
+ * @parameter
+ *      src, [object]
+ *      desc,[object]
+ *      attrs, array of attr name [string]
+ * @example
+ *      var src = {id:1,name:'Ken',age:28};
+ *      var desc = {};
+ *      Object.copyAttrs(src,desc,['id','name']);
+ *      //desc = {id:1,name:'Ken'};
+ * */
+Object.copyAttrs = function(src,dest,attrs) {
+    for(var i in attrs) {
+        var attr = attrs[i];
+        dest[attr] = src[attr];
+    }
+};
