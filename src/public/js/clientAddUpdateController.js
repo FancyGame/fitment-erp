@@ -7,6 +7,7 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
 
     if(!$scope.clientId) {
         //create client
+        $scope.page_name = "新建";
         $scope.client = {};
 
         LoadingBarBegin(cfpLoadingBar);
@@ -42,6 +43,7 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
     }
     else {
         //update client
+        $scope.page_name = "更新";
         LoadingBarBegin(cfpLoadingBar);
 
         $q.all([
