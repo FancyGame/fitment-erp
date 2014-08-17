@@ -18,7 +18,7 @@ exports.getMyListFE = function(req,res) {
         }
         whereParam += ' and ('+searchSql+')';
     }
-    return db.getList(dao.tableName,whereParam,req,res);
+    return db.getList(dao.tableName,whereParam,{order:'createon desc'},req,res);
 };
 
 exports.getMyCountFE = function(req,res) {

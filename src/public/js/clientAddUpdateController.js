@@ -23,7 +23,7 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
 
         $scope.onSubmit = function(isFormValid) {
             if(!isFormValid) {
-                alert("表单数据不正确,请检查后重新提交");
+                ErrorBox("表单数据不正确,请检查后重新提交");
                 return false;
             }
 
@@ -33,10 +33,10 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
             client.cid = $rootScope.curUser.cid;
             client.oid = $rootScope.curUser.id;
             Ajax.post('/client',client).then(function(data){
-                alert("创建成功");
+                SuccessBox("创建成功");
                 LoadingBarEnd(cfpLoadingBar);
             },function(error){
-                alert("创建失败");
+                ErrorBox("创建失败");
                 LoadingBarEnd(cfpLoadingBar);
             });
         };
@@ -58,7 +58,7 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
 
         $scope.onSubmit = function(isFormValid) {
             if(!isFormValid) {
-                alert("表单数据不正确,请检查后重新提交");
+                ErrorBox("表单数据不正确,请检查后重新提交");
                 return false;
             }
 
@@ -69,7 +69,7 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
                 LoadingBarEnd(cfpLoadingBar);
                 window.history.back();
             },function(error){
-                alert("Update is wrong");
+                ErrorBox("Update is wrong");
                 LoadingBarEnd(cfpLoadingBar);
             });
         };

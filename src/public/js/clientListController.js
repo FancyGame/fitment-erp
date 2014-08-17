@@ -7,7 +7,7 @@ app.controller("clientListController", ['$rootScope','$scope','Ajax','$location'
 
     LoadingBarBegin(cfpLoadingBar);
 
-    $scope.pageCount = 5;
+    $scope.pageCount = 10;
     $scope.keyword = '';
     $scope.currentPage = $routeParams.page ? $routeParams.page : 1;
     Ajax.get('/client_count/my').then(function(data){
@@ -65,7 +65,7 @@ app.controller("clientListController", ['$rootScope','$scope','Ajax','$location'
                 Ajax.delete("client/"+$itemScope.client.id).then(function(data){
                     LoadClient();
                 },function(error){
-                    alert("delete error");
+                    ErrorBox('delete error');
                 });
             }
         ]

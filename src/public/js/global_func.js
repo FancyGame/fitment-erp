@@ -57,3 +57,82 @@ function wc(s){
 //        console.log('watchers',watchers);
     return watchers;
 }
+
+/**
+ * @Author Ken
+ * @description 获取元素居中时的left,top
+ * @LastUpdateDate 2014-08-17
+ */
+function GetCenterPosition(dom) {
+    return {
+        left:($(window).width() - dom.outerWidth())/2,
+        top:($(window).height() - dom.outerHeight())/2 + $(document).scrollTop()
+    };
+}
+/**
+ * @Author Ken
+ * @description 获取box显示时的left,top, (1/2,1/4)
+ * @LastUpdateDate 2014-08-17
+ */
+function GetBoxPosition(dom) {
+    return {
+        left:($(window).width() - dom.outerWidth())/2,
+        top:($(window).height() - dom.outerHeight())/4 + $(document).scrollTop()
+    };
+}
+
+/**
+ * @Author Ken
+ * @description 显示基本提示框,由调用者指定显示的样式与内容
+ * @LastUpdateDate 2014-08-17
+ */
+function _BaseBox(boxClass,iconClass,msg) {
+    var box = $('<div>');
+
+    var content = '';
+    content += '<button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>';
+    content += '<strong style="position: absolute;"><i class="'+iconClass+'"></i></strong>';
+    content += '<span style="display:inline-block;max-width:500px;margin:0px 10px 0px 20px;">';
+    content += msg;
+    content += '</span>';
+
+    box.html(content);
+    $(document).find('body').append(box);
+
+    box.addClass(boxClass);
+    box.css({position:'fixed','z-index':9999,display:'none'});
+    box.css(GetBoxPosition(box));
+    box.fadeIn(500);
+
+    setTimeout(function(){
+        box.fadeOut(1000,function(){
+            this.outerHTML = '';
+        });
+    },5000);
+}
+
+/**
+ * @Author Ken
+ * @description 警告,信息,错误, 成功 提示框
+ * @LastUpdateDate 2014-08-17
+ */
+function WarningBox(msg) {
+    var boxClass = 'alert alert-warning';
+    var iconClass = 'icon-warning-sign';
+    _BaseBox(boxClass,iconClass,msg);
+}
+function ErrorBox(msg) {
+    var boxClass = 'alert alert-danger';
+    var iconClass = 'icon-remove';
+    _BaseBox(boxClass,iconClass,msg);
+}
+function InfoBox(msg) {
+    var boxClass = 'alert alert-info';
+    var iconClass = 'icon-info-sign';
+    _BaseBox(boxClass,iconClass,msg);
+}
+function SuccessBox(msg) {
+    var boxClass = 'alert alert-success';
+    var iconClass = 'icon-ok';
+    _BaseBox(boxClass,iconClass,msg);
+}

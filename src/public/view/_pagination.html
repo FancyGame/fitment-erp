@@ -1,0 +1,30 @@
+<div class="row" style="background-color: #EFF3F8;" ng-controller="paginationController">
+    <div class="col-xs-12">
+        <span class="pull-left" style="margin:10px;background-color: #F9F9F9;color:#999;border: 1px solid #D9D9D9;padding:6px 12px;">
+            总 {{(totalItemCount+pageCount-1)/pageCount | int}} 页
+        </span>
+        <pagination class="pull-left" total-items="totalItemCount" ng-model="currentPage" items-per-page="pageCount" class="pagination-sm" boundary-links="true"></pagination>
+        <span class="pull-left" style="margin:10px;">
+            <div class="btn-group">
+                <button data-toggle="dropdown" class="btn btn-default btn-sm dropdown-toggle" style="padding:4px;">
+                    每页 {{pageCount}} 条
+                    <span class="icon-caret-down icon-on-right"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-info pull-right">
+                    <li>
+                        <a href="javascript:;" ng-click="pageCount=10">10</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" ng-click="pageCount=20">20</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" ng-click="pageCount=50">50</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" ng-click="pageCount=100">100</a>
+                    </li>
+                </ul>
+            </div><!-- /btn-group -->
+        </span>
+    </div>
+</div>

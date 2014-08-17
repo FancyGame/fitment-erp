@@ -257,6 +257,9 @@ exports.getList = function(tableName,objWhere,params,req,res) {
         if(!params) {
             params = {page:[]};
         }
+        if(!params.page) {
+            params.page = [];
+        }
         if(req.query.pageNo)
             params.page.push(req.query.pageNo);
         else

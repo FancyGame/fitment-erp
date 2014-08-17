@@ -73,7 +73,8 @@ exports.login = function(req,res) {
            sess.userId = rows[0].id;
        }
        else {
-           res.send("false");
+           res.status(500);
+           res.send({message:'Wrong username or password'});
        }
     }).fail(function(error){
         res.status(500);

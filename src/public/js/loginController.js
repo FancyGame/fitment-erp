@@ -15,9 +15,9 @@ app.controller("loginController", ['$rootScope','$scope','Ajax',function($rootSc
             }
         },function(json) {
             if(typeof(json) != 'undefined' && typeof(json.message) != 'undefined')
-                alert("Login failed, msg=" + json.message);
+                ErrorBox("Login failed, msg=" + json.message);
             else
-                alert("Login failed, please try again later.");
+                ErrorBox("Login failed, please try again later.");
         });
     };
     $scope.showBox = function(name) {
