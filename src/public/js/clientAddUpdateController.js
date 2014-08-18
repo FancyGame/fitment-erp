@@ -52,7 +52,7 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
         ]).then(function(dataArr) {
             $scope.client = dataArr[0];
             $scope.client_statusList = dataArr[1];
-            $scope.client.status = $scope.client.status;
+            $scope.status = '正常';
             LoadingBarEnd(cfpLoadingBar);
         });
 

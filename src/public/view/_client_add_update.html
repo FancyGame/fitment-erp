@@ -38,7 +38,7 @@
         <label class="col-sm-2 control-label no-padding-right" > 状态 </label>
         <div class="col-sm-10">
             <select ng-model="client.status" >
-                <option value="{{status.id}}" ng-bind="status.name" ng-repeat="status in client_statusList"></option>
+                <option value="{{status.id}}" ng-selected="status.id==client.status" ng-bind="status.name" ng-repeat="status in client_statusList"></option>
             </select>
         </div>
     </div>

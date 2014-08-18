@@ -3,6 +3,9 @@
 .btn {
     padding:0px;
 }
+.bootbox .btn{
+    padding: 4px 15px;
+}
 .pagination {
     margin: 10px;
 }

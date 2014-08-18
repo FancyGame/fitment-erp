@@ -136,3 +136,39 @@ function SuccessBox(msg) {
     var iconClass = 'icon-ok';
     _BaseBox(boxClass,iconClass,msg);
 }
+
+/**
+ * @Author Ken
+ * @description 显示基本对话框,由调用者指定显示的样式与内容
+ * @LastUpdateDate 2014-08-17
+ */
+function _BaseDialog(msg,confirmCallback) {
+    bootbox.dialog({
+        message: msg,
+        buttons:
+        {
+            "click" :
+            {
+                "label" : "确认",
+                "className" : "btn-sm btn-primary",
+                "callback": confirmCallback
+            },
+            "button" :
+            {
+                "label" : "取消",
+                "className" : "btn-sm"
+            }
+        }
+    });
+}
+/**
+ * @Author Ken
+ * @description confirm框
+ * @LastUpdateDate 2014-08-17
+ */
+function DelConfirm(confirmCallback) {
+    _BaseDialog("确认删除数据?",confirmCallback);
+}
+function Confirm(msg,confirmCallback) {
+    _BaseDialog(msg,confirmCallback);
+}

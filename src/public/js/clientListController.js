@@ -62,10 +62,12 @@ app.controller("clientListController", ['$rootScope','$scope','Ajax','$location'
             {class:'icon-trash red',css:{}},
             '删除',
             function ($itemScope) {
-                Ajax.delete("client/"+$itemScope.client.id).then(function(data){
-                    LoadClient();
-                },function(error){
-                    ErrorBox('delete error');
+                DelConfirm(function(){
+                    Ajax.delete("client/"+$itemScope.client.id).then(function(data){
+                        LoadClient();
+                    },function(error){
+                        ErrorBox('delete error');
+                    });
                 });
             }
         ]
