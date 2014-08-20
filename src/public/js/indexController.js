@@ -14,8 +14,16 @@ app.controller("indexController", ['$rootScope','$scope','Ajax','$browser','$q',
             $rootScope.curCompany = company;
             LoadingBarEnd(cfpLoadingBar);
         });
+        Ajax.get("/navigator/my?gid="+$rootScope.curUser.gid).then(function(rows){
+            $rootScope.tabs = rows;
+            $scope.curTab = $scope.tabs[0];  //default value is first tab
+            $scope.curTab.active = true;
+            $scope.curParentTab = {};
+            LoadingBarEnd(cfpLoadingBar);
+        });
     });
 
+        /*
     $scope.tabs = [
         {url:"#/mainboard",name:"个人主页",class:"icon-home",active:true,open:false},
         {url:"#/work_task",name:"任务管理",class:"icon-tasks",active:false,subTabStyle:{display:'none'},open:false
@@ -43,9 +51,9 @@ app.controller("indexController", ['$rootScope','$scope','Ajax','$browser','$q',
         {url:"#",name:"资料管理",class:"icon-file-alt",active:false,open:false},
         {url:"#",name:"材料管理",class:"icon-inbox",active:false,open:false}
     ];
+    */
 
-    $scope.curTab = $scope.tabs[0];  //default value is first tab
-    $scope.curParentTab = {};
+
 
     $scope.onTabClick = function(tab,parentTab) {
         if($scope.curTab==tab)

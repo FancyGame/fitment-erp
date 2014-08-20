@@ -8,6 +8,7 @@ var companyBiz = require('./biz/companyBiz');
 var workTaskBiz = require('./biz/workTaskBiz');
 var clientBiz = require('./biz/clientBiz');
 var projectBiz = require('./biz/projectBiz');
+var navigatorBiz = require('./biz/navigatorBiz');
 var stableTableBiz = require('./biz/stableTableBiz');
 
 //var bizArray = [userBiz,companyBiz,workTaskBiz,clientBiz,projectBiz,stableTableBiz];
@@ -28,6 +29,8 @@ var stableTableBiz = require('./biz/stableTableBiz');
 
 exports.routePaths = {
     get:[
+        {path:'/navigator/my',          function:navigatorBiz['getMyListFE']},
+
         {path:'/user/getUserList',          function:userBiz['getUserList']},
         {path:'/user/getCurUser',           function:userBiz['getCurUserFE']},
 
