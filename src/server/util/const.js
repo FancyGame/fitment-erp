@@ -13,5 +13,6 @@ exports.OPT_DELETE      = 1<<3;
 //Operation End
 
 //Error Message Start
-exports.MSG_NO_PRIVILEGE = {message:'No Privilege'};
+exports.MSG_NO_PRIVILEGE = {message:'无权执行操作'};
+exports.MSG_NO_USER_OR_PWD = {message:'无此用户或密码不正确'};
 //Error Message End
