@@ -5,9 +5,19 @@
 var dao = require('../dao/projectDao');
 var db = require('../util/db');
 var logger = require('../util/logger').logger;
+var privilegeBiz = require('./privilegeBiz');
+var C = require('../util/const');
+var sname = 'project';
 
 exports.getMyListFE = function(req,res) {
-    return db.getList(dao.tableName,{oid:req.session.userId,del:0},req,res);
+    privilegeBiz.checkPrivilege(req.session.userId,req.session.gid,sname,C.OPT_RETRIEVE).then(function(hasPrivilege){
+        if(hasPrivilege)
+            return db.getList(dao.tableName,{oid:req.session.userId,del:0},req,res);
+        else {
+            res.status(500);
+            res.send(C.MSG_NO_PRIVILEGE);
+        }
+    });
 };
 
 exports.getMyCountFE = function(req,res) {

@@ -66,7 +66,7 @@ function wc(s){
 function GetCenterPosition(dom) {
     return {
         left:($(window).width() - dom.outerWidth())/2,
-        top:($(window).height() - dom.outerHeight())/2 + $(document).scrollTop()
+        top:($(window).height() - dom.outerHeight())/2// + $(document).scrollTop()
     };
 }
 /**
@@ -77,7 +77,7 @@ function GetCenterPosition(dom) {
 function GetBoxPosition(dom) {
     return {
         left:($(window).width() - dom.outerWidth())/2,
-        top:($(window).height() - dom.outerHeight())/4 + $(document).scrollTop()
+        top:($(window).height() - dom.outerHeight())/4// + $(document).scrollTop()
     };
 }
 
