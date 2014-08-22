@@ -5,6 +5,7 @@
 var config = require('./router_config');
 var forbiddenPaths = config.forbiddenPaths;
 var logger = require('./util/logger').logger;
+var C = require('./util/const');
 
 function setRouter(router) {
     // before all
@@ -43,7 +44,7 @@ function isForbidden(req,res) {
 function hasAuthorization(req,res) {
     if(!req.session.userId && req.path!='/user/login') {
         res.status(500);
-        res.end('NoAuthorization');
+        res.end(C.MSG_NO_AUTH);
         return false;
     }
     return true;
