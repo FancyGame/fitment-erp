@@ -44,7 +44,7 @@ app.factory('Ajax',function($http,$location,$q){
     };
 
     function checkAuthorizedStatus(data) {
-        if(!angular.isUndefined(data) && data=="NoAuthorization") {
+        if(!angular.isUndefined(data) && data.message=="NoAuthorization") {
 //            $location.url('../login.html');
             window.location.href='/login.html';
         }
