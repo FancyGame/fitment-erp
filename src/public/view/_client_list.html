@@ -43,13 +43,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="client in clients" ng-context-menu="menuOptions">
-                            <td ng-bind="client.name"></td>
-                            <td ng-bind="client.address"></td>
-                            <td ng-bind="client.phone"></td>
-                            <td ng-bind="client.comment"></td>
-                            <td ng-bind="DateFormat(client.createon,'yyyy-MM-dd')"></td>
-                            <td ng-bind="DateFormat(client.updateon,'yyyy-MM-dd')"></td>
+                        <tr bindonce ng-repeat="client in clients" ng-context-menu="menuOptions">
+                            <td bo-bind="client.name"></td>
+                            <td bo-bind="client.address"></td>
+                            <td bo-bind="client.phone"></td>
+                            <td bo-bind="client.comment"></td>
+                            <td bo-bind="DateFormat(client.createon,'yyyy-MM-dd')"></td>
+                            <td bo-bind="DateFormat(client.updateon,'yyyy-MM-dd')"></td>
                         </tr>
                         </tbody>
                     </table>

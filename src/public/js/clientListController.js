@@ -38,6 +38,10 @@ app.controller("clientListController", ['$rootScope','$scope','Ajax','$location'
         LoadingBarBegin(cfpLoadingBar);
         LoadClient();
     });
+    $scope.$watch('pageCount',function(to,from){
+        LoadingBarBegin(cfpLoadingBar);
+        LoadClient();
+    });
 
     $scope.onSearch = function() {
         LoadClient();

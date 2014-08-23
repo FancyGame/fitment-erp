@@ -6,6 +6,8 @@ var dao = require('../dao/userDao');
 var db = require('../util/db');
 var logger = require('../util/logger').logger;
 var encrypt = require('../util/encrypt');
+var C = require('../util/const');
+var privilegeBiz = require('./privilegeBiz');
 
 
 /**
@@ -27,7 +29,24 @@ exports.getCurUserFE = function(req,res) {
             user.cid = rows[0].cid;
             user.age = rows[0].age;
             user.realname = rows[0].realname;
-            res.send(user);
+            //查出用户的权限,一起传给前台,用于做前台的权限判断
+            privilegeBiz.getAllPrivilegesOfUser(user.id,user.gid).then(function(privileges){
+                user.privileges = {};
+                for(var i in privileges) {
+                    var priv = privileges[i];
+                    user.privileges[priv.sname] = {
+                        sid:          priv.sid,
+                        opt_retrieve: (priv.value & C.OPT_RETRIEVE) > 0,
+                        opt_create:   (priv.value & C.OPT_CREATE)   > 0,
+                        opt_update:   (priv.value & C.OPT_UPDATE)   > 0,
+                        opt_delete:   (priv.value & C.OPT_DELETE)   > 0
+                    };
+                }
+                res.send(user);
+            }).fail(function(error){
+                res.status(500);
+                res.send("查询用户权限出错");
+            });
         }
         else {
             res.send("false");

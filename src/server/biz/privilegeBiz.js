@@ -8,16 +8,51 @@ var logger = require('../util/logger').logger;
 var C = require('../util/const');
 var Q = require('q');
 
-exports.checkPrivilege = function(uid,gid,source_name,privilegeToCheck) {
+var getPrivilegeValue = function(uid,gid,source_name) {
     var deferred = Q.defer();
-
     var sql = "select min(value) as value from privilege where (gid=? or uid=?) and sname=? group by sid";
     var params = [],i=0;
     params[i++] = gid;
     params[i++] = uid;
     params[i++] = source_name;
     db.query(sql,params).then(function(rows){
-        if(rows && rows.length>0 && (rows[0].value & privilegeToCheck) > 0) {
+        if(rows && rows.length>0) {
+            deferred.resolve(rows[0].value);
+        }
+        else
+            deferred.resolve(0);
+    }).fail(function(error){
+        logger.error(error);
+        deferred.reject(-1);
+    });
+    return deferred.promise;
+};
+exports.getPrivilegeValue = getPrivilegeValue;
+
+var getAllPrivilegesOfUser = function(uid,gid) {
+    var deferred = Q.defer();
+    var sql = "select sid,sname,min(value) as value from privilege where (gid=? or uid=?) group by sid";
+    var params = [],i=0;
+    params[i++] = gid;
+    params[i++] = uid;
+    db.query(sql,params).then(function(rows){
+        if(rows && rows.length>0) {
+            deferred.resolve(rows);
+        }
+        else
+            deferred.resolve([]);
+    }).fail(function(error){
+        logger.error(error);
+        deferred.reject(error);
+    });
+    return deferred.promise;
+};
+exports.getAllPrivilegesOfUser = getAllPrivilegesOfUser;
+
+exports.checkPrivilege = function(uid,gid,source_name,privilegeToCheck) {
+    var deferred = Q.defer();
+    getPrivilegeValue(uid,gid,source_name).then(function(value){
+        if((value & privilegeToCheck) > 0) {
             deferred.resolve(true);
         }
         else
