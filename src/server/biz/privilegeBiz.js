@@ -17,10 +17,11 @@ exports.checkPrivilege = function(uid,gid,source_name,privilegeToCheck) {
     params[i++] = uid;
     params[i++] = source_name;
     db.query(sql,params).then(function(rows){
-        if(rows && rows.length>0 && (rows[0] & privilegeToCheck) > 0) {
+        if(rows && rows.length>0 && (rows[0].value & privilegeToCheck) > 0) {
             deferred.resolve(true);
         }
-        deferred.resolve(false);
+        else
+            deferred.resolve(false);
     }).fail(function(error){
         logger.error(error);
         deferred.resolve(false);
