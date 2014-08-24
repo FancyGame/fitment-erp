@@ -13,6 +13,7 @@ exports.OPT_DELETE      = 1<<3;
 //Operation End
 
 //Error Message Start
+exports.MSG_OPT_FAILED = {message:'操作失败'};
 exports.MSG_NO_AUTH = {message:'NoAuthorization'};
 exports.MSG_NO_PRIVILEGE = {message:'无权执行操作'};
 exports.MSG_NO_USER_OR_PWD = {message:'无此用户或密码不正确'};

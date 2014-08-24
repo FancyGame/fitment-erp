@@ -10,11 +10,12 @@ var C = require('../util/const');
 exports.getMyListFE = function(req,res) {
     //navigator 与 privilege 临时表 做内联
     var sql = 'select n.* from navigator n inner join ' +
-        ' (select sid,min(value) as value from privilege where true and (gid=? or uid=?) group by sid) p on n.id=p.sid ' +
+        ' (select sid,min(value) as value from privilege where true and (gid=? or uid=?) and (cid=0 or cid=?) group by sid) p on n.id=p.sid ' +
         ' where p.value & ? > 0 order by n.display_order,id';
     var params = [],i=0;
     params[i++] = req.query.gid;
     params[i++] = req.session.userId;
+    params[i++] = req.session.cid;
     params[i++] = C.OPT_RETRIEVE;
 
     db.query(sql,params).then(function(rows){

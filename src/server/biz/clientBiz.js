@@ -9,7 +9,7 @@ var privilegeBiz = require('./privilegeBiz');
 var C = require('../util/const');
 
 exports.getMyListFE = function(req,res) {
-    var whereParam = {oid:req.session.userId,del:0};
+    var whereParam = {oid:req.session.userId,cid:req.session.cid,del:0};
     if(req.query.keyword) {
         whereParam = "oid="+req.session.userId+" and del=0";
         var arr = ['name','address','phone','comment'];
@@ -24,7 +24,7 @@ exports.getMyListFE = function(req,res) {
 };
 
 exports.getMyCountFE = function(req,res) {
-    var whereParam = {oid:req.session.userId,del:0};
+    var whereParam = {oid:req.session.userId,cid:req.session.cid,del:0};
     if(req.query.keyword) {
         whereParam = "oid="+req.session.userId+" and del=0";
         var arr = ['name','address','phone','comment'];
@@ -53,10 +53,13 @@ exports.getById = function(req,res) {
 };
 
 exports.add = function(req,res,next) {
-    privilegeBiz.checkPrivilege(req.session.userId,req.session.gid,'client', C.OPT_CREATE).then(function(hasPrivilege){
+    privilegeBiz.checkPrivilege(req.session.userId,req.session.gid,req,session.cid,'client', C.OPT_CREATE).then(function(hasPrivilege){
         if(hasPrivilege) {
             //TODO: 下面这两个回调, 可以简化为Common方法,以便通用,主要是req.body数据向object数据的转换
-            db.insert(dao.tableName,req.body).then(function(rows){
+            //不能让用户在前端篡改company id
+            var params = req.body;
+            params.cid = req.session.cid;
+            db.insert(dao.tableName,params).then(function(rows){
                 res.send(rows);
             }).fail(function(error){
                 logger.error('Add client error [clientBiz.add], errorMsg =',error);

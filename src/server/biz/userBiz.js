@@ -91,6 +91,7 @@ exports.login = function(req,res) {
            var sess = req.session;
            sess.userId = rows[0].id;
            sess.gid = rows[0].gid;
+           sess.cid = rows[0].cid;
            sess.save();
        }
        else {
