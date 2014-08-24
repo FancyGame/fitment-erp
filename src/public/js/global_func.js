@@ -50,34 +50,32 @@ function wc(s){
     var child = s.$$childHead;
     while (child) {
         watchers += (child.$$watchers) ? child.$$watchers.length : 0;
-//            console.log('next child',watchers);
         watchers += wc(child);
         child = child.$$nextSibling;
     }
-//        console.log('watchers',watchers);
     return watchers;
 }
 
 /**
  * @Author Ken
  * @description 获取元素居中时的left,top
- * @LastUpdateDate 2014-08-17
+ * @LastUpdateDate 2014-08-23
  */
 function GetCenterPosition(dom) {
     return {
         left:($(window).width() - dom.outerWidth())/2,
-        top:($(window).height() - dom.outerHeight())/2// + $(document).scrollTop()
+        top:($(window).height() - dom.outerHeight())/2      // + $(document).scrollTop()
     };
 }
 /**
  * @Author Ken
  * @description 获取box显示时的left,top, (1/2,1/4)
- * @LastUpdateDate 2014-08-17
+ * @LastUpdateDate 2014-08-23
  */
 function GetBoxPosition(dom) {
     return {
         left:($(window).width() - dom.outerWidth())/2,
-        top:($(window).height() - dom.outerHeight())/4// + $(document).scrollTop()
+        top:($(window).height() - dom.outerHeight())/4      // + $(document).scrollTop()
     };
 }
 

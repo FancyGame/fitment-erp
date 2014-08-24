@@ -17,7 +17,7 @@ var Q = require('q');
  * @example:
  *      [{cid:1,ver:1},{cid:2,ver:4}]
  */
-var privilege_version_lib = [{cid:1,ver:5}];
+var privilege_version_lib = [];
 
 //var getPrivilegeValue = function(uid,gid,cid,source_name) {
 //    var deferred = Q.defer();
@@ -83,6 +83,7 @@ var getAllPrivilegesOfUser = function(cid,gid,uid) {
                 value:        priv.value
             };
         }
+        //user的权限优先,会替换group的权限
         for(var i in user_level_privs) {
             var priv = user_level_privs[i];
             privs[priv.sname] = {
@@ -94,7 +95,7 @@ var getAllPrivilegesOfUser = function(cid,gid,uid) {
                 value:        priv.value
             };
         }
-        //set version
+        //设置最新的version
         for(var i in privilege_version_lib) {
             var priv_ver = privilege_version_lib[i];
             if(priv_ver.cid==cid) {
@@ -102,6 +103,7 @@ var getAllPrivilegesOfUser = function(cid,gid,uid) {
                 break;
             }
         }
+        //没找到公司, 则给个默认值
         if(!privs.ver)
             privs.ver = 0;
         deferred.resolve(privs);
@@ -115,17 +117,16 @@ exports.getAllPrivilegesOfUser = getAllPrivilegesOfUser;
 
 /**
  * @Author Ken
- * @description 查询某用户对资源的访问权限
+ * @description 查询某用户对资源的访问权限,如果数据过时了,则自动更新
  * @LastUpdateDate 2014-08-24
  * @parameter sesssion: 从session中取出privileges, 并判断[更新版本号]
  * @parameter source_name: like: 'client', 'project' 一般以数据库的表名为数据名
- * @parameter privilegeToCheck: the bit you want to check
  * @return promise
  * */
 exports.getPrivilege = function(session,source_name) {
     var deferred = Q.defer();
     var privileges = null;
-    //先找privs
+    //先查privs是否过期, 过期则更新后,并放回session
     (function(){
         var deferred = Q.defer();
         var bFound = false;
@@ -159,6 +160,7 @@ exports.getPrivilege = function(session,source_name) {
         }
         return deferred.promise;
     })().then(function(){
+        //找到后返回
         if(privileges && privileges[source_name]) {
             deferred.resolve(privileges[source_name]);
         }
