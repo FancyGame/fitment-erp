@@ -7,11 +7,11 @@ var db = require('../util/db');
 var logger = require('../util/logger').logger;
 var privilegeBiz = require('./privilegeBiz');
 var C = require('../util/const');
-var sname = 'project';
+var source_name = 'project';
 
 exports.getMyListFE = function(req,res) {
-    privilegeBiz.checkPrivilege(req.session.userId,req.session.gid,req.session.cid,sname,C.OPT_RETRIEVE).then(function(hasPrivilege){
-        if(hasPrivilege)
+    privilegeBiz.getPrivilege(req.session,source_name).then(function(priv){
+        if(priv.opt_retrieve)
             return db.getList(dao.tableName,{oid:req.session.userId,cid:req.session.cid,del:0},req,res);
         else {
             res.status(500);

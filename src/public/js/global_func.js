@@ -106,7 +106,10 @@ function _BaseBox(boxClass,iconClass,msg) {
 
     setTimeout(function(){
         box.fadeOut(1000,function(){
-            this.outerHTML = '';
+            if(box)
+                box.outerHTML = '';
+            else
+                console.log('box be deleted');
         });
     },5000);
 }

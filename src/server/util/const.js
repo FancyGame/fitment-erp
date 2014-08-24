@@ -10,6 +10,10 @@ exports.OPT_RETRIEVE    = 1<<0;
 exports.OPT_CREATE      = 1<<1;
 exports.OPT_UPDATE      = 1<<2;
 exports.OPT_DELETE      = 1<<3;
+exports.OPT_RETRIEVE_STR    = 'opt_retrieve';
+exports.OPT_CREATE_STR      = 'opt_create';
+exports.OPT_UPDATE_STR      = 'opt_update';
+exports.OPT_DELETE_STR      = 'opt_delete';
 //Operation End
 
 //Error Message Start

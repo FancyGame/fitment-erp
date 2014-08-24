@@ -29,24 +29,16 @@ exports.getCurUserFE = function(req,res) {
             user.cid = rows[0].cid;
             user.age = rows[0].age;
             user.realname = rows[0].realname;
+            user.privileges = req.session.privileges;//login 时已经存在session中了
+            res.send(user);
             //查出用户的权限,一起传给前台,用于做前台的权限判断
-            privilegeBiz.getAllPrivilegesOfUser(user.id,user.gid).then(function(privileges){
-                user.privileges = {};
-                for(var i in privileges) {
-                    var priv = privileges[i];
-                    user.privileges[priv.sname] = {
-                        sid:          priv.sid,
-                        opt_retrieve: (priv.value & C.OPT_RETRIEVE) > 0,
-                        opt_create:   (priv.value & C.OPT_CREATE)   > 0,
-                        opt_update:   (priv.value & C.OPT_UPDATE)   > 0,
-                        opt_delete:   (priv.value & C.OPT_DELETE)   > 0
-                    };
-                }
-                res.send(user);
-            }).fail(function(error){
-                res.status(500);
-                res.send("查询用户权限出错");
-            });
+//            privilegeBiz.getAllPrivilegesOfUser(user.cid,user.gid,user.id).then(function(privileges){
+//                user.privileges = privileges;
+//                res.send(user);
+//            }).fail(function(error){
+//                res.status(500);
+//                res.send("查询用户权限出错");
+//            });
         }
         else {
             res.send("false");
@@ -74,7 +66,7 @@ exports.getUserList = function(user) {
 
 /**
  * @Author Ken
- * @description 登陆,成功后把userId存在session中
+ * @description 登陆,成功后把userId等信息存在session中
  * @LastUpdateDate 2014-06-24
  * @type FE
  * */
@@ -92,7 +84,14 @@ exports.login = function(req,res) {
            sess.userId = rows[0].id;
            sess.gid = rows[0].gid;
            sess.cid = rows[0].cid;
-           sess.save();
+           //登陆时查询权限并保存在session中,以便动作的权限判断
+           privilegeBiz.getAllPrivilegesOfUser(sess.cid,sess.gid,sess.userId).then(function(privileges){
+               sess.privileges = privileges;
+               sess.save();
+           }).fail(function(error){
+               res.status(500);
+               res.send("查询用户权限出错");
+           });
        }
        else {
            res.status(500);

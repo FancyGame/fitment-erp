@@ -7,6 +7,7 @@ var db = require('../util/db');
 var logger = require('../util/logger').logger;
 var privilegeBiz = require('./privilegeBiz');
 var C = require('../util/const');
+var source_name = 'client';
 
 exports.getMyListFE = function(req,res) {
     var whereParam = {oid:req.session.userId,cid:req.session.cid,del:0};
@@ -53,8 +54,8 @@ exports.getById = function(req,res) {
 };
 
 exports.add = function(req,res,next) {
-    privilegeBiz.checkPrivilege(req.session.userId,req.session.gid,req,session.cid,'client', C.OPT_CREATE).then(function(hasPrivilege){
-        if(hasPrivilege) {
+    privilegeBiz.getPrivilege(req.session,source_name).then(function(priv){
+        if(priv.opt_create) {
             //TODO: 下面这两个回调, 可以简化为Common方法,以便通用,主要是req.body数据向object数据的转换
             //不能让用户在前端篡改company id
             var params = req.body;
