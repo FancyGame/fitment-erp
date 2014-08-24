@@ -95,7 +95,7 @@ exports.login = function(req,res) {
        }
        else {
            res.status(500);
-           res.send({message:'Wrong username or password'});
+           res.send(C.MSG_NO_USER_OR_PWD);
        }
     }).fail(function(error){
         res.status(500);
