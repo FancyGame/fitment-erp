@@ -135,7 +135,7 @@ exports.getPrivilege = function(session,source_name) {
             if(priv_ver.cid==session.cid) {
                 if(session.privileges.ver<priv_ver.ver) {
                     //reload
-                    getAllPrivilegesOfUser(session.cid,session.gid,session.userId).then(function(data) {
+                    getAllPrivilegesOfUser(session.cid,session.gid,session.uid).then(function(data) {
                         privileges = data;
                         //保存回session
                         session.privileges = privileges;

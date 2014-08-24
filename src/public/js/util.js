@@ -145,12 +145,20 @@ MathUtil.min = function(){
  * @example
  *      var src = {id:1,name:'Ken',age:28};
  *      var desc = {};
- *      Object.copyAttrs(src,desc,['id','name']);
+ *      Object.copy(src,desc,['id','name']);
  *      //desc = {id:1,name:'Ken'};
  * */
-Object.copyAttrs = function(src,dest,attrs) {
-    for(var i in attrs) {
-        var attr = attrs[i];
-        dest[attr] = src[attr];
+Object.copy = function(src,dest,attrs) {
+    if(attrs && attrs.length>0) {
+        for(var i in attrs) {
+            var attr = attrs[i];
+            dest[attr] = src[attr];
+        }
+    }
+    else {
+        for(var key in dest) {
+            if(dest[key])
+                dest[key] = src[key];
+        }
     }
 };

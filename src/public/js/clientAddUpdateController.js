@@ -64,7 +64,7 @@ app.controller("clientAddUpdateController", ['$rootScope','$scope','Ajax','$loca
 
             LoadingBarBegin(cfpLoadingBar);
             var client = {};
-            Object.copyAttrs($scope.client,client,['id','name','address','status','phone','comment']);
+            Object.copy($scope.client,client,['id','name','address','status','phone','comment']);
             Ajax.put('/client',client).then(function(data){
                 LoadingBarEnd(cfpLoadingBar);
                 window.history.back();

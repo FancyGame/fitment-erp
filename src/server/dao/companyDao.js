@@ -36,9 +36,9 @@ exports.tableName = tableName;
 //        query += ' and address=?';
 //        params[i++] = company.address;
 //    }
-//    if(company.telphone) {
-//        query += ' and telphone=?';
-//        params[i++] = company.telphone;
+//    if(company.telephone) {
+//        query += ' and telephone=?';
+//        params[i++] = company.telephone;
 //    }
 //
 //    return db.query(query,params);

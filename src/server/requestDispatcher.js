@@ -42,7 +42,7 @@ function isForbidden(req,res) {
     return false;
 }
 function hasAuthorization(req,res) {
-    if(!req.session.userId && req.path!='/user/login') {
+    if(!req.session.uid && req.path!='/user/login') {
         res.status(500);
         res.send(C.MSG_NO_AUTH);
         return false;
