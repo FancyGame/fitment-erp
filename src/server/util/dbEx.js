@@ -9,8 +9,8 @@ var logger = require('./logger').logger;
 var Q = require('q');
 
 /**
- * @description 拓展insert/delete/update,使其能处理基本的web业务
- * @LastUpdateDate 2014-08-24
+ * @description 拓展insert/delete/update/select,使其能处理基本的web业务
+ * @LastUpdateDate 2014-08-27
  * @param tableName
  * @param objSet
  * @param req
@@ -39,6 +39,27 @@ exports.insert = function(tableName,objSet,req,res) {
         res.send(rows);
     }).fail(function(error){
         logger.error('Insert '+tableName+' error, errorMsg =',error);
+        res.status(500);
+        res.end();
+    });
+};
+/**
+ * @Author Ken
+ * @description 带网络的处理
+ * @LastUpdateDate 2014-08-27
+ * @parameter sql
+ * @parameter params
+ * */
+exports.selectBySql = function(sql,params,req,res) {
+    db.query(sql,params).then(function(rows){
+        if(rows.length>0) {
+            res.send(rows);
+        }
+        else {
+            res.send([]);
+        }
+    }).fail(function(error) {
+        logger.error('dbEx.js selectByBase, error=',error);
         res.status(500);
         res.end();
     });
