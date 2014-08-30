@@ -29,7 +29,7 @@ var stableTableBiz = require('./biz/stableTableBiz');
 
 exports.routePaths = {
     get:[
-        {path:'/navigator/my',          function:navigatorBiz['getMyListFE']},
+        {path:'/navigator/my',              function:navigatorBiz['getMyListFE']},
 
         {path:'/user/getUserList',          function:userBiz['getUserList']},
         {path:'/user/getCurUser',           function:userBiz['getCurUserFE']},
