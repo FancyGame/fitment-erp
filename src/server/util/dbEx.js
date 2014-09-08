@@ -70,10 +70,10 @@ exports.selectBySql = function(sql,params,req,res) {
  * @description 通用的count方法,获取数据的条数
  * @LastUpdateDate 2014-08-09
  * @parameter tableName
- * @parameter objWhere 根据此参数的属性组合sqlWhere
+ * @parameter objWhere 根据此参数的属性组合sqlWhere [optional]
+ * @parameter params 参数 [optional]
  * @parameter req request
  * @parameter res response
- * @return promise
  * */
 exports.getList = function(tableName,objWhere,params,req,res) {
     if(arguments.length<3 || arguments.length>5) {
@@ -127,12 +127,49 @@ exports.getList = function(tableName,objWhere,params,req,res) {
  * @parameter obj 根据此参数的属性组合sql
  * @parameter req request
  * @parameter res response
- * @return promise
  * */
 exports.getCount = function(tableName,obj,req,res) {
     db.count(tableName,obj).then(function(rows){
         var count = rows.length>0 ? rows[0].count : 0;
         res.send({count:count});
+    },function(error){
+        res.status(500);
+        res.end();
+    });
+};
+
+/**
+ * @Author Ken
+ * @description 通用的get一条记录方法, 获取某表中的某一条记录
+ * @LastUpdateDate 2014-09-08
+ * @parameter tableName
+ * @parameter objWhere 根据此参数的属性组合sql
+ * @parameter req request
+ * @parameter res response
+ * @return promise
+ * */
+exports.getOne= function(tableName,objWhere,params,req,res) {
+    if(arguments.length<3 || arguments.length>5) {
+        logger.error("Error: params length is wrong [db.getList]");
+    }
+    else if(arguments.length==3) {
+        req = objWhere;
+        res = params;
+        objWhere = null;
+        params = null;
+    }
+    else if(arguments.length==4) {
+        res = req;
+        req = params;
+        params = null;
+    }
+    db.select(tableName,objWhere,params).then(function(rows){
+        if(rows.length>0) {
+            res.send(rows[0]);
+        }
+        else {
+            res.send({});
+        }
     },function(error){
         res.status(500);
         res.end();

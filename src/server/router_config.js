@@ -9,6 +9,7 @@ var workTaskBiz = require('./biz/workTaskBiz');
 var clientBiz = require('./biz/clientBiz');
 var projectBiz = require('./biz/projectBiz');
 var navigatorBiz = require('./biz/navigatorBiz');
+var messageBiz = require('./biz/messageBiz');
 var stableTableBiz = require('./biz/stableTableBiz');
 
 //var bizArray = [userBiz,companyBiz,workTaskBiz,clientBiz,projectBiz,stableTableBiz];
@@ -47,7 +48,10 @@ exports.routePaths = {
         {path:'/project_count/my',          function:projectBiz['getMyCountFE']},
 
         {path:'/client_status',             function:stableTableBiz['getClientStatusList']},
-        {path:'/session',                   function:userBiz['session']}
+        {path:'/session',                   function:userBiz['session']},
+
+        {path:'/msg/:to_uid',               function:messageBiz['getListFE']},
+        {path:'/msg',                       function:messageBiz['getListFE']}
     ],
     post:[
         {path:'/client',                    function:clientBiz['add']},

@@ -123,7 +123,7 @@ exports.getAllPrivilegesOfUser = getAllPrivilegesOfUser;
  * @parameter source_name: like: 'client', 'project' 一般以数据库的表名为数据名
  * @return promise
  * */
-exports.getPrivilege = function(session,source_name) {
+var getPrivilege = function(session,source_name) {
     var deferred = Q.defer();
     var privileges = null;
     //先查privs是否过期, 过期则更新后,并放回session
@@ -170,6 +170,7 @@ exports.getPrivilege = function(session,source_name) {
     });
     return deferred.promise;
 };
+exports.getPrivilege = getPrivilege;
 
 //exports.checkPrivilege = function(privs,source_name,privilegeToCheck) {
 //    var deferred = Q.defer();
@@ -182,6 +183,34 @@ exports.getPrivilege = function(session,source_name) {
 //    }).fail(function(error){
 //        logger.error(error);
 //        deferred.resolve(false);
+//    });
+//    return deferred.promise;
+//};
+//exports.checkCreate = function() {
+//    var deferred = Q.defer();
+//    getPrivilege(req.session,source_name).then(function(priv){
+//        if(priv.opt_create) {
+//            deferred.resolve();
+//        }
+//        else {
+//            res.status(500);
+//            res.send(C.MSG_NO_PRIVILEGE);
+//            deferred.reject();
+//        }
+//    });
+//    return deferred.promise;
+//};
+//exports.checkUpdate = function() {
+//    var deferred = Q.defer();
+//    getPrivilege(req.session,source_name).then(function(priv){
+//        if(priv.opt_update) {
+//            deferred.resolve();
+//        }
+//        else {
+//            res.status(500);
+//            res.send(C.MSG_NO_PRIVILEGE);
+//            deferred.reject();
+//        }
 //    });
 //    return deferred.promise;
 //};

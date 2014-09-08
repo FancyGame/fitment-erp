@@ -44,17 +44,18 @@ exports.getMyCountFE = function(req,res) {
 };
 
 exports.getById = function(req,res) {
-    dao.getById(req.session.uid,req.params.id).then(function(rows){
-        if(rows.length>0) {
-            res.send(rows[0]);
-        }
-        else {
-            res.send({});
-        }
-    },function(error){
-        res.status(500);
-        res.end();
-    });
+    dbEx.getOne(dao.tableName,{oid:req.session.uid,del:0,id:req.params.id},null,req,res)
+//    dao.getById(req.session.uid,req.params.id).then(function(rows){
+//        if(rows.length>0) {
+//            res.send(rows[0]);
+//        }
+//        else {
+//            res.send({});
+//        }
+//    },function(error){
+//        res.status(500);
+//        res.end();
+//    });
 };
 
 exports.add = function(req,res,next) {
@@ -74,9 +75,25 @@ exports.add = function(req,res,next) {
 };
 
 exports.update = function(req,res) {
-    return dbEx.update(dao.tableName,req.body,{id:req.body.id},req,res);
+    privilegeBiz.getPrivilege(req.session,source_name).then(function(priv){
+        if(priv.opt_update) {
+            dbEx.update(dao.tableName,req.body,{id:req.body.id,oid:req.session.uid},req,res);
+        }
+        else {
+            res.status(500);
+            res.send(C.MSG_NO_PRIVILEGE);
+        }
+    });
 };
 
 exports.delete = function(req,res) {
-    return dbEx.update(dao.tableName,{del:1},{id:req.params.id},req,res);
+    privilegeBiz.getPrivilege(req.session,source_name).then(function(priv){
+        if(priv.opt_delete) {
+            dbEx.update(dao.tableName,{del:1},{id:req.params.id,oid:req.session.uid},req,res);
+        }
+        else {
+            res.status(500);
+            res.send(C.MSG_NO_PRIVILEGE);
+        }
+    });
 };
