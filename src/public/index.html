@@ -230,69 +230,69 @@
 						<li class="green">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
 								<i class="icon-envelope icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
+								<span class="badge badge-success" ng-bind="msgs.length">0</span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
 								<li class="dropdown-header">
 									<i class="icon-envelope-alt"></i>
-									5 Messages
+									{{msgs.length}} 条消息
 								</li>
 
-								<li>
+								<li bindonce ng-repeat="msg in msgs">
 									<a href="javascript:;">
 										<img src="assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 										<span class="msg-body">
 											<span class="msg-title">
-												<span class="blue">Alex:</span>
-												Ciao sociis natoque penatibus et auctor ...
+												<span class="blue"><span bo-bind="msg.from_name"></span>:</span>
+                                                <span bo-bind="msg.content"></span>
 											</span>
 
 											<span class="msg-time">
 												<i class="icon-time"></i>
-												<span>a moment ago</span>
+												<span bo-bind="msg.createon | date"></span>
 											</span>
 										</span>
 									</a>
 								</li>
 
-								<li>
-									<a href="javascript:;">
-										<img src="assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Susan:</span>
-												Vestibulum id ligula porta felis euismod ...
-											</span>
+								<!--<li>-->
+									<!--<a href="javascript:;">-->
+										<!--<img src="assets/avatars/avatar3.png" class="msg-photo" alt="Susan's Avatar" />-->
+										<!--<span class="msg-body">-->
+											<!--<span class="msg-title">-->
+												<!--<span class="blue">Susan:</span>-->
+												<!--Vestibulum id ligula porta felis euismod ...-->
+											<!--</span>-->
 
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>20 minutes ago</span>
-											</span>
-										</span>
-									</a>
-								</li>
+											<!--<span class="msg-time">-->
+												<!--<i class="icon-time"></i>-->
+												<!--<span>20 minutes ago</span>-->
+											<!--</span>-->
+										<!--</span>-->
+									<!--</a>-->
+								<!--</li>-->
 
-								<li>
-									<a href="javascript:;">
-										<img src="assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />
-										<span class="msg-body">
-											<span class="msg-title">
-												<span class="blue">Bob:</span>
-												Nullam quis risus eget urna mollis ornare ...
-											</span>
+								<!--<li>-->
+									<!--<a href="javascript:;">-->
+										<!--<img src="assets/avatars/avatar4.png" class="msg-photo" alt="Bob's Avatar" />-->
+										<!--<span class="msg-body">-->
+											<!--<span class="msg-title">-->
+												<!--<span class="blue">Bob:</span>-->
+												<!--Nullam quis risus eget urna mollis ornare ...-->
+											<!--</span>-->
 
-											<span class="msg-time">
-												<i class="icon-time"></i>
-												<span>3:15 pm</span>
-											</span>
-										</span>
-									</a>
-								</li>
+											<!--<span class="msg-time">-->
+												<!--<i class="icon-time"></i>-->
+												<!--<span>3:15 pm</span>-->
+											<!--</span>-->
+										<!--</span>-->
+									<!--</a>-->
+								<!--</li>-->
 
 								<li>
 									<a href="inbox.html">
-										See all messages
+                                        查看全部消息
 										<i class="icon-arrow-right"></i>
 									</a>
 								</li>

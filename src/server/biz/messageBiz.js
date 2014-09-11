@@ -12,19 +12,20 @@ var object = require('../util/object');
 var source_name = 'message';
 
 exports.getListFE = function(req,res) {
-    var msg = {};
-//    msg.to_uid = req.params.to_uid;
-    msg.to_uid = req.session.uid;
     var sql = "SELECT m.*,u.realname as from_name,u2.realname as to_name" +
     " FROM message m " +
     " left join user u on m.from_uid=u.id " +
     " left join user u2 on m.to_uid=u2.id" +
     " left join urgency_level ul on m.urgency_level=ul.id" +
-    " where m.to_uid=? order by createon desc;";
+    " where m.to_uid=?";
     var params=[], i=0;
-    params[i++] = msg.to_uid;
+    params[i++] = req.session.uid;
+    if(req.query.is_read) {
+        sql += " and m.is_read=?";
+        params[i++] = req.query.is_read;
+    }
+    sql += " order by createon desc;";
     return dbEx.selectBySql(sql,params,req,res);
-//    return dbEx.getList(dao.tableName,msg,req,res);
 };
 exports.getById = function(req,res) {
     return dbEx.getOne(dao.tableName,{to_uid:req.session.uid,del:0},null,req,res);

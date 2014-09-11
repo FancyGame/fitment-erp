@@ -2,26 +2,44 @@
  * Created by Ken on 2014-4-15.
  */
 
-app.controller("indexController", ['$rootScope','$scope','Ajax','$browser','$q','cfpLoadingBar',
-    function($rootScope,$scope,Ajax,$browser,$q,cfpLoadingBar) {
+app.controller("indexController", ['$rootScope','$scope','Ajax','$browser','$q','cfpLoadingBar','$timeout',
+function($rootScope,$scope,Ajax,$browser,$q,cfpLoadingBar,$timeout) {
 
     LoadingBarBegin(cfpLoadingBar);
 
     Ajax.get("/user/getCurUser").then(function(user){
         $rootScope.curUser = user;
         cfpLoadingBar.set(0.5);
-        Ajax.get("/company/"+$rootScope.curUser.cid).then(function(company){
-            $rootScope.curCompany = company;
-            LoadingBarEnd(cfpLoadingBar);
-        });
-        Ajax.get("/navigator/my?gid="+$rootScope.curUser.gid).then(function(rows){
-            $rootScope.tabs = rows;
+        $q.all([
+            Ajax.get("/company/"+$rootScope.curUser.cid),
+            Ajax.get("/navigator/my?gid="+$rootScope.curUser.gid)
+        ]).then(function(dataArr) {
+            $rootScope.curCompany = dataArr[0];
+
+            $rootScope.tabs = dataArr[1];
             $scope.curTab = $scope.tabs[0];  //default value is first tab
             $scope.curTab.active = true;
             $scope.curParentTab = {};
+
             LoadingBarEnd(cfpLoadingBar);
         });
     });
+
+    $scope.msgs = [];
+    function LoadMsg() {
+        Ajax.get("/msg/my?is_read=true").then(function(rows){
+            $scope.msgs = rows;
+//            console.log(rows);
+        });
+
+        $timeout(LoadMsg,3000);
+    }
+
+    $timeout(LoadMsg,3000);
+
+//    $scope.$on('$destroy',function(event){
+//        $timeout.cancel(timerMsgChecker);
+//    });
 
         /*
     $scope.tabs = [
