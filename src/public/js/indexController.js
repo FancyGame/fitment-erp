@@ -28,7 +28,22 @@ function($rootScope,$scope,Ajax,$browser,$q,cfpLoadingBar,$timeout) {
     $scope.msgs = [];
     function LoadMsg() {
         Ajax.get("/msg/my?is_read=true").then(function(rows){
-            $scope.msgs = rows;
+//            $scope.msgs = rows;
+            //rows是从新到旧, 所以倒序循环
+            for(var i=rows.length-1;i>-1;i--) {
+                var msg = rows[i];
+                var j = 0;
+                for(; j<$scope.msgs.length; j++) {
+                    if(msg.id==$scope.msgs[j].id) {
+                        break;
+                    }
+                }
+                //not found, new message
+                if(j==$scope.msgs.length) {
+                    msg.date_time = DateUtil.format(msg.createon,'yyyy-MM-dd HH:mm:ss');
+                    $scope.msgs.unshift(msg);
+                }
+            }
 //            console.log(rows);
         });
 
@@ -37,6 +52,14 @@ function($rootScope,$scope,Ajax,$browser,$q,cfpLoadingBar,$timeout) {
 
     $timeout(LoadMsg,3000);
 
+    $scope.onSetMessageAsRead = function(msg) {
+        console.log(msg);
+    };
+
+    $scope.msgClick = function() {
+        $scope.k_msg_box.show=$scope.k_msg_box.show?false:true;
+        console.log('menu click');
+    };
 //    $scope.$on('$destroy',function(event){
 //        $timeout.cancel(timerMsgChecker);
 //    });

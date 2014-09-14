@@ -227,19 +227,19 @@
 							</ul>
 						</li>
 
-						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
+						<li class="green" ng-init="k_msg_box.show=false" ng-click="msgClick()">
+							<a href="javascript:;" >
 								<i class="icon-envelope icon-animated-vertical"></i>
 								<span class="badge badge-success" ng-bind="msgs.length">0</span>
 							</a>
 
-							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+							<ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close" style="display:{{k_msg_box.show?'inherit':'none'}}">
 								<li class="dropdown-header">
 									<i class="icon-envelope-alt"></i>
 									{{msgs.length}} 条消息
 								</li>
 
-								<li bindonce ng-repeat="msg in msgs">
+								<li bindonce ng-repeat="msg in msgs" ng-click="onSetMessageAsRead(msg)">
 									<a href="javascript:;">
 										<img src="assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 										<span class="msg-body">
@@ -250,7 +250,7 @@
 
 											<span class="msg-time">
 												<i class="icon-time"></i>
-												<span bo-bind="msg.createon | date"></span>
+												<span bo-bind="msg.date_time"></span>
 											</span>
 										</span>
 									</a>
@@ -291,7 +291,7 @@
 								<!--</li>-->
 
 								<li>
-									<a href="inbox.html">
+									<a href="javascript:;">
                                         查看全部消息
 										<i class="icon-arrow-right"></i>
 									</a>
