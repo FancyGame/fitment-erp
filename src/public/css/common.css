@@ -38,3 +38,42 @@
     color: red;
     margin-right: 2px;
 }
+
+.mp-width-100p {
+    width: 100%;
+}
+.mp-height-100p {
+    height: 100%;
+}
+.mp-display-inline-block {
+    display:inline-block;
+}
+
+/* 让动画无限播放 start */
+.icon-animated-bell {
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+
+.icon-animated-vertical {
+    animation-iteration-count: infinite;
+    -webkit-animation-iteration-count: infinite;
+}
+/* 让动画无限播放 end */
+
+/* 让加了click处理的header元素, 还能和其他的元素有一样的样式 start */
+.ace-nav>li>a [class*="icon-"] {
+    font-size: 16px;
+    color: #FFF;
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+}
+.ace-nav>li>a .badge {
+    position: relative;
+    top: -2px;
+    left: 2px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+/* 让加了click处理的header元素, 还能和其他的元素有一样的样式 end */

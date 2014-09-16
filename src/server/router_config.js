@@ -57,9 +57,11 @@ exports.routePaths = {
         {path:'/user/login',                function:userBiz['login']}
     ],
     delete:[
-        {path:'/client/:id',                function:clientBiz['delete']}
+        {path:'/client/:id',                function:clientBiz['delete']},
+        {path:'/msg/:id',                   function:messageBiz['delete']}
     ],
     put:[
+        {path:'/msg/setAsRead/:id',         function:messageBiz['setAsRead']},
         {path:'/client',                    function:clientBiz['update']}
     ]
 };

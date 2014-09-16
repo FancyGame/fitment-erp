@@ -52,14 +52,37 @@ function($rootScope,$scope,Ajax,$browser,$q,cfpLoadingBar,$timeout) {
 
     $timeout(LoadMsg,3000);
 
-    $scope.onSetMessageAsRead = function(msg) {
-        console.log(msg);
+    $scope.onSetMessageAsRead = function(index) {
+        Ajax.put('/msg/setAsRead/'+$scope.msgs[index].id).then(function(data) {
+            console.log('setAsRead',data);
+            $scope.msgs.splice(index,1);
+            //close it if no msgs.
+            if($scope.msgs.length<1) {
+                angular.element('#k_msg_box').css('display','none');
+            }
+        },function(){
+            ErrorBox('Update message Error');
+        });
     };
 
-    $scope.msgClick = function() {
-        $scope.k_msg_box.show=$scope.k_msg_box.show?false:true;
-        console.log('menu click');
+    $scope.showMsgBox = function() {
+        console.log('show box');;
     };
+    $scope.hideMsgBox = function() {
+        console.log('hide box');;
+    };
+//    $scope.k_msg_box.show = false;
+//    $scope.msgClick = function() {
+////        $scope.k_msg_box.show = $scope.k_msg_box.show ? false : true;
+//        if($scope.k_msg_box.show) {
+//            $scope.k_msg_box.show = false;
+//            console.log('menu close');
+//        }
+//        else {
+//            $scope.k_msg_box.show = true;
+//            console.log('menu open');
+//        }
+//    };
 //    $scope.$on('$destroy',function(event){
 //        $timeout.cancel(timerMsgChecker);
 //    });
