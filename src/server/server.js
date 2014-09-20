@@ -16,7 +16,7 @@ var mongo = require('mongodb');
 app.use(bodyParser());
 app.use(cookieParser());//must before session
 app.use(session({
-    secret: 'keyboard cat',
+    secret: 'ken keyboard cat',
     cookie: {maxAge:60*60*1000*24},//24 hours
     store: new MongoStore({
         db:new mongo.Db('fitment-erp',new mongo.Server('127.0.0.1', 27017), {native_parser:true})

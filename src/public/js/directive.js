@@ -351,4 +351,43 @@
         };
     });
 
+
+    /**
+     * @Author : Ken
+     * @Date : 2014-09-20
+     * @directive name : mpNumberOnly
+     * @attributes:
+     *   mp-number-only  :  只能输入数字
+     * @example
+     * [example 1]
+     *          <input mp-number-only >
+     * */
+    app.directive("mpNumberOnly", function () {
+        return {
+            restrict: 'A',
+            link:function(scope,element,attrs) {
+                element.bind('keydown',function(event) {
+                    var code = event.keyCode;
+                    switch(code) {
+                        case 8: //backspace
+                        case 37://left
+                        case 39://right
+                        //case...
+                            return true;
+                    }
+                    if(code==13 && attrs.mpOnEnter) {
+                        CallFunction(scope,attrs.mpOnEnter);
+                    }
+                    if(code>57 || code<48)
+                        return false;
+                });
+                //去除右键
+                element.bind('contextmenu',function(event){
+                    return false;
+                });
+
+            }
+        };
+    });
+
 })();

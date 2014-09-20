@@ -232,7 +232,7 @@
 						<li class="green">
                                 <a href="javascript:;" >
                                     <div class="mp-width-100p mp-height-100p" mp-toggle="k_msg_box" data-show-callback="showMsgBox()" data-hide-callback="hideMsgBox()">
-                                        <i class="icon-envelope icon-animated-vertical"></i>
+                                        <i class="icon-envelope" ng-class="{'icon-animated-vertical':msgs.length>0}"></i>
                                         <span class="badge badge-success" ng-bind="msgs.length">0</span>
                                     </div>
                                 </a>

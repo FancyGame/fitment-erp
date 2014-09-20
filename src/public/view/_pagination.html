@@ -4,6 +4,13 @@
             总 {{(totalItemCount+pageCount-1)/pageCount | int}} 页
         </span>
         <pagination class="pull-left" total-items="totalItemCount" ng-model="currentPage" items-per-page="pageCount" class="pagination-sm" boundary-links="true"></pagination>
+        <!--<span class="pull-left" style="border-left:1px solid grey;margin:0px 10px;"> </span>-->
+        <span class="pull-left" style="margin:10px;">
+            转到
+            <input ng-model="pageNoToGo" type="text" mp-number-only mp-on-enter="onJumpToPage()" style="width:50px;">
+            页
+            <button class="btn btn-info btn-small" style="margin:0px 0px 5px 10px" ng-click="onJumpToPage()">Go</button>
+        </span>
         <span class="pull-left" style="margin:10px;">
             <div class="btn-group">
                 <button data-toggle="dropdown" class="btn btn-default btn-sm dropdown-toggle" style="padding:4px;">
