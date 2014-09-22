@@ -44,18 +44,7 @@ exports.getMyCountFE = function(req,res) {
 };
 
 exports.getById = function(req,res) {
-    dbEx.getOne(dao.tableName,{oid:req.session.uid,del:0,id:req.params.id},null,req,res)
-//    dao.getById(req.session.uid,req.params.id).then(function(rows){
-//        if(rows.length>0) {
-//            res.send(rows[0]);
-//        }
-//        else {
-//            res.send({});
-//        }
-//    },function(error){
-//        res.status(500);
-//        res.end();
-//    });
+    dbEx.getOne(dao.tableName,{oid:req.session.uid,del:0,id:req.params.id},null,req,res);
 };
 
 exports.add = function(req,res,next) {
