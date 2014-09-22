@@ -19,9 +19,8 @@ var copy = function(src,dest,attrs) {
         }
     }
     else {
-        for(var key in dest) {
-            if(dest[key])
-                dest[key] = src[key];
+        for(var key in src) {
+            dest[key] = src[key];
         }
     }
 };
