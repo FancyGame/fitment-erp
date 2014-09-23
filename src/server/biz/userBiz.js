@@ -8,7 +8,7 @@ var dbEx = require('../util/dbEx');
 var logger = require('../util/logger').logger;
 var encrypt = require('../util/encrypt');
 var C = require('../util/const');
-var object = require('../util/object');
+var ObjectUtil = require('../util/object');
 var privilegeBiz = require('./privilegeBiz');
 
 
@@ -24,7 +24,7 @@ exports.getCurUserFE = function(req,res) {
     user.del = 0;
     db.select(dao.tableName,user).then(function(rows){
         if(rows.length>0) {
-            object.copy(rows[0],user,['id','name','gid','cid','age','realname']);
+            ObjectUtil.copy(rows[0],user,['id','name','gid','cid','age','realname']);
             //login 时已经存在session中了
             user.privileges = req.session.privileges;
             res.send(user);

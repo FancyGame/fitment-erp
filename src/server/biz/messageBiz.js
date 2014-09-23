@@ -8,7 +8,7 @@ var dbEx = require('../util/dbEx');
 var logger = require('../util/logger').logger;
 var privilegeBiz = require('./privilegeBiz');
 var C = require('../util/const');
-var object = require('../util/object');
+var ObjectUtil = require('../util/object');
 var source_name = 'message';
 
 exports.getListFE = function(req,res) {

@@ -8,7 +8,7 @@ var dbEx = require('../util/dbEx');
 var logger = require('../util/logger').logger;
 var privilegeBiz = require('./privilegeBiz');
 var C = require('../util/const');
-var object = require('../util/object');
+var ObjectUtil = require('../util/object');
 var source_name = 'client';
 
 exports.getMyListFE = function(req,res) {
@@ -51,7 +51,7 @@ exports.add = function(req,res,next) {
     privilegeBiz.getPrivilege(req.session,source_name).then(function(priv){
         if(priv.opt_create) {
             var params = {};
-            object.copy(req.body,params,[]);
+            ObjectUtil.copy(req.body,params,[]);
             //不能让用户在前端篡改company id
             params.cid = req.session.cid;
             dbEx.insert(dao.tableName,params,req,res);
