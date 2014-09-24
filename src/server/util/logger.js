@@ -10,6 +10,6 @@ log4js.loadAppender('file');
 log4js.addAppender(log4js.appenders.file('logs/fitment.log'), 'fitment');
 
 var logger = log4js.getLogger('fitment');
-logger.setLevel('DEBUG');  //DEBUG < INFO < WARN < ERROR < FATAL
+logger.setLevel('INFO');  //DEBUG < INFO < WARN < ERROR < FATAL
 
 exports.logger = logger;

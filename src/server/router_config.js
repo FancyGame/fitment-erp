@@ -50,7 +50,10 @@ exports.routePaths = {
         {path:'/client_status',             function:stableTableBiz['getClientStatusList']},
         {path:'/session',                   function:userBiz['session']},
 
-        {path:'/msg/my',                    function:messageBiz['getListFE']}
+        {path:'/msg/my',                    function:messageBiz['getMyListFE']},
+        {path:'/msg/group',                 function:messageBiz['getMyGroupMsgListFE']},
+        {path:'/msg/company',               function:messageBiz['getMyCompanyMsgListFE']},
+        {path:'/msg/system',                function:messageBiz['getSysMsgListFE']}
     ],
     post:[
         {path:'/client',                    function:clientBiz['add']},

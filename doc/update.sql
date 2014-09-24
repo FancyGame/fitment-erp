@@ -26,3 +26,7 @@ CREATE TABLE `urgency_level` (
   insert into urgency_level values(2,0,"优先");
   insert into urgency_level values(3,0,"紧急");
   insert into urgency_level values(4,0,"立即");
+
+
+ALTER TABLE `fitment-erp`.`message` ADD COLUMN `cid` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `id`,
+ ADD COLUMN `gid` INTEGER UNSIGNED NOT NULL DEFAULT 0 AFTER `cid`;
