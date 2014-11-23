@@ -1,18 +1,20 @@
 /**
  * Created by Ken on 2014-4-18.
  */
+define(function(require,exports,modules){
+    exports.ctrl = function($rootScope,$scope,Ajax ,$location,cfpLoadingBar,$q) {
+        $scope.text = "个人主页";
+        console.log($scope.text);
 
-app.controller("mainboardController", ['$rootScope','$scope','Ajax','$location','cfpLoadingBar','$q',function($rootScope,$scope,Ajax ,$location,cfpLoadingBar,$q) {
-    $scope.text = "个人主页";
+        LoadingBarBegin(cfpLoadingBar);
 
-    LoadingBarBegin(cfpLoadingBar);
+        Ajax.get('/work_task_count/my').then(function(data){
+            $scope.taskCount = data.count;
+            LoadingBarEnd(cfpLoadingBar);
+        });
 
-    Ajax.get('/work_task_count/my').then(function(data){
-        $scope.taskCount = data.count;
-        LoadingBarEnd(cfpLoadingBar);
-    });
-
-    //move page-content a little bit down in case of tabs cover part of it
-    OnViewLoad();
-}] );
+        //move page-content a little bit down in case of tabs cover part of it
+        OnViewLoad();
+    };
+});
 

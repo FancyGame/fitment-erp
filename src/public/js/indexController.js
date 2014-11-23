@@ -50,7 +50,7 @@ function($rootScope,$scope,Ajax,$browser,$q,cfpLoadingBar,$timeout) {
         $timeout(LoadMsg,3000);
     }
 
-    $timeout(LoadMsg,3000);
+//    $timeout(LoadMsg,3000);
 
     $scope.onSetMessageAsRead = function(index) {
         Ajax.put('/msg/setAsRead/'+$scope.msgs[index].id).then(function(data) {
